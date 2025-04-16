@@ -113,7 +113,7 @@ if (empty($_REQUEST['order_id']) || empty($_REQUEST['paymentMethod']) || empty($
           'paymentMethod' => $paymentMethod,
           'merchantOrderId' => $order_id,
           'productDetails' => $companyName . ' Order : #' . $order_id,
-          'additionalParam' => '',
+          'additionalParam' => $additionalParam,
           'merchantUserInfo' => $firstname . " " .  $lastname,
           'customerVaName' => $firstname . " " .  $lastname,
 		  'email' => $email,

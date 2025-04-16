@@ -26,10 +26,10 @@ require_once(dirname(__FILE__) . '/duitku-lib/Duitku.php');
  *
  * @return array
  */
-function duitku_vamandiri_MetaData()
+function duitku_vamandirih2h_MetaData()
 {
     return array(
-        'DisplayName' => 'Duitku VA MANDIRI (Deprecated)',
+        'DisplayName' => 'Duitku VA MANDIRI Direct Module',
         'APIVersion' => '1.0', // Use API Version 1.1
         'DisableLocalCredtCardInput' => true,
         'TokenisedStorage' => true,
@@ -55,14 +55,14 @@ function duitku_vamandiri_MetaData()
  *
  * @return array
  */
-function duitku_vamandiri_config()
+function duitku_vamandirih2h_config()
 {
     return array(
         // the friendly display name for a payment gateway should be
         // defined here for backwards compatibility
         'FriendlyName' => array(
             'Type' => 'System',
-            'Value' => 'Duitku VA MANDIRI (Deprecated)',
+            'Value' => 'Duitku VA MANDIRI Direct',
         ),
         // a text field type allows for single line text input
         'merchantcode' => array(
@@ -93,7 +93,7 @@ function duitku_vamandiri_config()
             'Type' => 'text',
             'Size' => '25',
             'Default' => '1440',
-            'Description' => '<br>The validity period of the transaction before it expires. Max 1440 in minutes.<br>This module will be removed in future release.',
+            'Description' => '<br>The validity period of the transaction before it expires. Max 1440 in minutes.',
         ),        
     );
 }
@@ -111,7 +111,7 @@ function duitku_vamandiri_config()
  *
  * @return string
  */
-function duitku_vamandiri_link($params)
+function duitku_vamandirih2h_link($params)
 {
 		
 	//set session Order
@@ -122,7 +122,7 @@ function duitku_vamandiri_link($params)
 	$systemUrl = $params['systemurl'];
     $returnUrl = $params['returnurl'];
 	$langPayNow = $params['langpaynow'];
-	$paymentMethod = "M1"; // PaymentMethod For Duitku
+	$paymentMethod = "M2"; // PaymentMethod For Duitku
 	
 	$img       = $systemUrl . "/modules/gateways/duitku-images/duitku_vamandiri.png"; 
     $htmlOutput .= '<img style="width: 152px;" src="' . $img . '" alt="VA MANDIRI"><br>';

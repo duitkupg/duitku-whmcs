@@ -2,7 +2,7 @@
 /*
 Plugin Name:  duitku-whmcs
 Description:  Duitku Payment Gateway 
-Version:      2.3
+Version:      2.5
 Author:       Duitku Development Team
 
 Author URI:   http://duitku.com
@@ -17,6 +17,12 @@ Install & activate the plugin. Modify some options in the settings page to suits
 
 -
 == Changelog ==
+
+= 2.5 Nov 16, 2020 = 
+
+improvement 2.4 to 2.5 :
+- Change Mandiri Virtual Accunt become deprecated
+- Add Mandiri H2H Virtual Account
 
 = 2.4 Oct 13, 2020 = 
 

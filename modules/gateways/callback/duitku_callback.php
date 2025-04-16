@@ -30,6 +30,8 @@ switch ($paymentCode) {
 		$gatewayModuleName = "duitku_vabni"; break;
 	case "M1":
 		$gatewayModuleName = "duitku_vamandiri"; break;
+	case "M2":
+		$gatewayModuleName = "duitku_vamandirih2h"; break;
 	case "FT":
 		$gatewayModuleName = "duitku_varitel"; break;
 	case "SP":

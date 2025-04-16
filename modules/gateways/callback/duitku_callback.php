@@ -53,6 +53,8 @@ switch ($paymentCode) {
 		$gatewayModuleName = "duitku_linkaja_applink"; break;		
 	case "BC":
 		$gatewayModuleName = "duitku_vabca"; break;
+	case "BA":
+		$gatewayModuleName = "duitku_vabca"; break;
 	case "LQ":
 		$gatewayModuleName = "duitku_linkaja_qris"; break;
 	case "IR":

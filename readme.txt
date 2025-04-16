@@ -2,7 +2,7 @@
 /*
 Plugin Name:  duitku-whmcs
 Description:  Duitku Payment Gateway 
-Version:      2.11.1
+Version:      2.11.2
 Author:       Duitku Development Team
 
 Author URI:   http://duitku.com
@@ -35,9 +35,14 @@ Install & activate the plugin. Modify some options in the settings page to suits
 -
 == Changelog ==
 
+= 2.11 Jun 23, 2022 =
+
+improvement 2.11.2 to 2.11.3 :
+- Fix Bug Va BCA Facilitator
+
 = 2.11 Jun 16, 2022 =
 
-improvement 2.11 to 2.11.1 :
+improvement 2.11 to 2.11.2 :
 - Change Logo Bank Neo Commerce
 
 = 2.10 Nov 11, 2021 =

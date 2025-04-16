@@ -2,7 +2,7 @@
 /*
 Plugin Name:  duitku-whmcs
 Description:  Duitku Payment Gateway 
-Version:      2.11.15
+Version:      2.11.16
 Author:       Duitku Development Team
 
 Author URI:   http://duitku.com
@@ -34,6 +34,9 @@ Install & activate the plugin. Modify some options in the settings page to suits
 
 -
 == Changelog ==
+
+change 2.11.15 to 2.11.16 :
+- Add Bank Syariah Indonesia
 
 change 2.11.14 to 2.11.15 :
 - Add Gudang Voucher

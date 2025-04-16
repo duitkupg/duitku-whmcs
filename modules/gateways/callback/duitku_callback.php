@@ -75,6 +75,8 @@ switch ($paymentCode) {
 		$gatewayModuleName = "duitku_jenius_pay"; break;
 	case "DM":
 		$gatewayModuleName = "duitku_vadanamonh2h"; break;
+	case "BV":
+		$gatewayModuleName = "duitku_vabsi"; break;
     default:
 		throw new Exception('payment method not recognize.');
 }

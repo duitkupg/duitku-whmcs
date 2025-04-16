@@ -26,6 +26,8 @@ switch ($paymentCode) {
 		$gatewayModuleName = "duitku_vamaybank"; break;
 	case "A1":
 		$gatewayModuleName = "duitku_vaatmbersama"; break;
+	case "A2":
+		$gatewayModuleName = "duitku_pospay"; break;
 	case "B1":
 		$gatewayModuleName = "duitku_vacimb"; break;
 	case "I1":

@@ -2,7 +2,7 @@
 /*
 Plugin Name:  duitku-whmcs
 Description:  Duitku Payment Gateway 
-Version:      2.10
+Version:      2.11
 Author:       Duitku Development Team
 
 Author URI:   http://duitku.com
@@ -36,10 +36,14 @@ Install & activate the plugin. Modify some options in the settings page to suits
 == Changelog ==
 
 
-= 2.10 Mar 3, 2022 =
+= 2.10 Nov 11, 2021 =
+
+improvement 2.10 to 2.11 :
+- Add BRI Virtual Account
+- Add QRIS by Nobu
 
 improvement 2.9 to 2.10 :
-- Remove Deprecated channel Mandiri Virtual Account 
+- Remove deprecated Mandiri Virtual Accunt
 - Add Bank Neo Commerce
 
 = 2.9.1 Okt 18, 2021 =

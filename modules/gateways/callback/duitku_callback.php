@@ -37,8 +37,6 @@ switch ($paymentCode) {
 		$gatewayModuleName = "duitku_vacimb"; break;
 	case "I1":
 		$gatewayModuleName = "duitku_vabni"; break;
-	case "M1":
-		$gatewayModuleName = "duitku_vamandiri"; break;
 	case "M2":
 		$gatewayModuleName = "duitku_vamandirih2h"; break;
 	case "FT":
@@ -59,8 +57,12 @@ switch ($paymentCode) {
 		$gatewayModuleName = "duitku_linkaja_qris"; break;
 	case "IR":
 		$gatewayModuleName = "duitku_indomaret"; break;
+	case "BR":
+		$gatewayModuleName = "duitku_briva"; break;
 	case "NC":
 		$gatewayModuleName = "duitku_bnc"; break;
+	case "NQ":
+		$gatewayModuleName = "duitku_nobu_qris"; break;
     default:
 		throw new Exception('payment method not recognize.');
 }
@@ -80,6 +82,7 @@ $order_id = stripslashes($_POST['merchantOrderId']);
 $status = stripslashes($_POST['resultCode']);
 $reference = stripslashes($_POST['reference']);
 $paymentAmount = stripslashes($_POST['amount']);
+$additionalParam = stripslashes($_POST['additionalParam']);
 //set parameters for Duitku inquiry
 $merchant_code = $gatewayParams['merchantcode'];
 $api_key = $gatewayParams['serverkey'];

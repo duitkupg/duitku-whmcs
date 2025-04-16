@@ -18,13 +18,14 @@ if (empty($_REQUEST['order_id']) || empty($_REQUEST['paymentMethod']) || empty($
 	
 	//set parameters for Duitku inquiry
     $merchant_code = $params['merchantcode'];
-    $amount = (int)$params['amount'];//(int)ceil($params['amount']);//
+    $amount = $params['amount'];//(int)ceil($params['amount']);//
 	$order_id = $params['invoiceid'];	
 	$serverkey = $params['serverkey'];
 	$endpoint = $params['endpoint'];
 	$expiryPeriod = $params['expiryPeriod'];
 	$credcode = $params['credcode'];
 	$currencyId = $params['currencyId'];
+	$additionalParam = $params['currency'];
 	
 	if (empty($merchant_code) || empty($serverkey) || empty($endpoint)) {
 		echo "Please Check Duitku Configuration Payment";
@@ -44,10 +45,10 @@ if (empty($_REQUEST['order_id']) || empty($_REQUEST['paymentMethod']) || empty($
 			if ($currencyDefault['code'] != 'IDR'){
 				//Check if Used currency is default
 				if ($currencyCurrent['code'] != $currencyDefault['code']){
-					$paymentAmount = $paymentAmount / $currencyCurrent['rate'];
-					$paymentAmount = $paymentAmount * $currencyIDR['rate'];
+					$amount = $amount / $currencyCurrent['rate'];
+					$amount = $amount * $currencyIDR['rate'];
 				}else{
-					$paymentAmount = $paymentAmount * $currencyIDR['rate'];
+					$amount = $amount * $currencyIDR['rate'];
 				}
 			}else{
 				$amount = $amount * $currencyCurrent['rate'];
@@ -55,9 +56,8 @@ if (empty($_REQUEST['order_id']) || empty($_REQUEST['paymentMethod']) || empty($
 		}
 	}
 
-
 	//round up amount for decimals
-	$amount = ceil($amount);
+	$amount = (int)ceil($amount);
 
 	//System parameters
 	$companyName = $params['companyname'];

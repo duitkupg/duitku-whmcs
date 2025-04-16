@@ -71,6 +71,8 @@ switch ($paymentCode) {
 		$gatewayModuleName = "duitku_atome"; break;
 	case "GQ":
 		$gatewayModuleName = "duitku_gudangvoucher_qris"; break;
+	case "JP":
+		$gatewayModuleName = "duitku_jenius_pay"; break;
     default:
 		throw new Exception('payment method not recognize.');
 }

@@ -2,7 +2,7 @@
 /*
 Plugin Name:  duitku-whmcs
 Description:  Duitku Payment Gateway 
-Version:      2.11.13
+Version:      2.11.14
 Author:       Duitku Development Team
 
 Author URI:   http://duitku.com
@@ -34,6 +34,9 @@ Install & activate the plugin. Modify some options in the settings page to suits
 
 -
 == Changelog ==
+
+change 2.11.13 to 2.11.14 :
+- Add Jenius Pay payment
 
 change 2.11.12 to 2.11.13 :
 - Fix file WHMCS.JSON

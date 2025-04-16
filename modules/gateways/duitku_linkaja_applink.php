@@ -131,8 +131,9 @@ function duitku_linkaja_applink_link($params)
 	//System parameters
 	$order_id = $params['invoiceid'];
 	$systemUrl = $params['systemurl'];
-    $returnUrl = $params['returnurl'];
+  $paymentName = $params['paymentmethod'];
 	$langPayNow = $params['langpaynow'];
+	$password = $params['serverkey'];
 	
 	if ( isset($type) ) {
 		$paymentMethod = $type;
@@ -145,17 +146,21 @@ function duitku_linkaja_applink_link($params)
   unset($params['serverkey']); 
   unset($params['endpoint']); 
   unset($params['expiryPeriod']);
-	
+  unset($params['password']);
+  unset($params['clientdetails']['password']);
+	$securityHash = Duitku_Helper::metode_hash(json_encode($params), $password);
 	
 	$img       = $systemUrl . "/modules/gateways/duitku-images/duitku_linkaja_applink.png";
 	$htmlOutput .= '<img style="width: 152px;" src="' . $img . '" alt="LINKAJA APPLINK"><br>';
-
+  
 	// $_SESSION['duitkuOrder'] = $params;
-  $params_string = json_encode($params);
   $htmlOutput .= '<form method="post" action="' . $systemUrl."/modules/gateways/callback/duitku_accept.php" . '">';
 	$htmlOutput .= '<input type="hidden" name="order_id" value="' . $order_id . '" />';
 	$htmlOutput .= '<input type="hidden" name="paymentMethod" value="' . $paymentMethod . '" />';
-	$htmlOutput .= '<input type="hidden" name="params" value="' . htmlspecialchars($params_string) . '" />';
+	$htmlOutput .= '<input type="hidden" name="paymentName" value="' . $paymentName . '" />';
+	$htmlOutput .= '<input type="hidden" name="securityHash" value="' . $securityHash . '" />';
+	// $htmlOutput .= '<input type="hidden" name="params" value="' . Duitku_Helper::metode_aes(json_encode($params), $password) . '" />';
+	$htmlOutput .= '<input type="hidden" name="params" value="' . base64_encode(json_encode($params)) . '" />';
   $htmlOutput .= '<input type="submit" id="pay-button" value="' . $langPayNow . '" />';
   $htmlOutput .= '</form>';
 	

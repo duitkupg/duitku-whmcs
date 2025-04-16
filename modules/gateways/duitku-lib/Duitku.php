@@ -19,3 +19,4 @@ if (!function_exists('json_decode')) {
 // Plumbing
 require_once('Duitku/ApiRequestor.php');
 require_once('Duitku/DuitkuCore.php');
+require_once('Duitku/DuitkuHelper.php');

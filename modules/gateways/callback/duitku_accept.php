@@ -8,15 +8,35 @@ require_once __DIR__ . '/../duitku-lib/Duitku.php';
 // check if the module is activated
 /*--- start ---*/
 
-if (empty($_REQUEST['order_id']) || empty($_REQUEST['paymentMethod']) || empty($_REQUEST['params'])) {
+if (empty($_REQUEST['order_id']) || empty($_REQUEST['paymentMethod']) || empty($_REQUEST['paymentName']) || empty($_REQUEST['params']) || empty($_REQUEST['securityHash'])) {
 	echo 'wrong query string please contact admin.';
 	error_log('wrong query string please contact admin.');
 	exit;
 }
+	//get config data
+	$config = getGatewayVariables($_REQUEST['paymentName']);
+	
+	//cek configuration
+	if (empty($config['merchantcode']) || empty($config['serverkey']) || empty($config['endpoint'])) {
+		echo "Invalid setup payment method, Please contact this website owner";
+		error_log("Please Check Duitku Configuration Payment");
+		exit;
+	}
+
+	//prepare for decription
+	$password = $config['serverkey'];
 
 	//get Params
-	$params = json_decode(htmlspecialchars_decode($_REQUEST['params']));
-	$config = getGatewayVariables($params->paymentmethod);
+	// $params = json_decode(Duitku_Helper::metode_aes($_REQUEST['params'], $password, "decrypt"));
+	$params = json_decode(base64_decode($_REQUEST['params']));
+
+	//check parameter for security
+	// if ($_REQUEST['securityHash'] != Duitku_Helper::metode_hash(Duitku_Helper::metode_aes($_REQUEST['params'], $password, "decrypt"), $password)) {
+	if ($_REQUEST['securityHash'] != Duitku_Helper::metode_hash(base64_decode($_REQUEST['params']), $password)) {
+		echo "Something wrong, please contact administrator!";
+		error_log("User try to change payment data to Duitku");
+		exit;
+	}
 	
 	//set parameters for Duitku inquiry
     $merchant_code = $config['merchantcode'];
@@ -25,15 +45,9 @@ if (empty($_REQUEST['order_id']) || empty($_REQUEST['paymentMethod']) || empty($
 	$serverkey = $config['serverkey'];
 	$endpoint = $config['endpoint'];
 	$expiryPeriod = $config['expiryPeriod'];
-	$credcode = $params->credcode;
+	$credcode = $config['credcode'];
 	$currencyId = $params->currencyId;
 	$additionalParam = $params->currency;
-	
-	if (empty($merchant_code) || empty($serverkey) || empty($endpoint)) {
-		echo "Please Check Duitku Configuration Payment";
-		error_log("Please Check Duitku Configuration Payment");
-		exit;
-	}
 	
 	//check if currency not IDR
 	if ($params->currency != 'IDR') {

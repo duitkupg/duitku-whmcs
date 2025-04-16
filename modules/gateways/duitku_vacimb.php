@@ -120,8 +120,9 @@ function duitku_vacimb_link($params)
 	//System parameters
 	$order_id = $params['invoiceid'];
 	$systemUrl = $params['systemurl'];
-    $returnUrl = $params['returnurl'];
+    $paymentName = $params['paymentmethod'];
 	$langPayNow = $params['langpaynow'];
+	$password = $params['serverkey'];
 	$paymentMethod = "B1"; // PaymentMethod For Duitku
 
     //unset settings
@@ -129,16 +130,19 @@ function duitku_vacimb_link($params)
     unset($params['serverkey']); 
     unset($params['endpoint']); 
     unset($params['expiryPeriod']);
+    unset($params['password']);
+    unset($params['clientdetails']['password']);
 	
 	$img       = $systemUrl . "/modules/gateways/duitku-images/duitku_vacimb.png"; 
     $htmlOutput .= '<img style="width: 152px;" src="' . $img . '" alt="VA CIMB"><br>';
 
 	// $_SESSION['duitkuOrder'] = $params;
-    $params_string = json_encode($params);
 	$htmlOutput .= '<form method="post" action="' . $systemUrl."/modules/gateways/callback/duitku_accept.php" . '">';
 	$htmlOutput .= '<input type="hidden" name="order_id" value="' . $order_id . '" />';
 	$htmlOutput .= '<input type="hidden" name="paymentMethod" value="' . $paymentMethod . '" />';
-	$htmlOutput .= '<input type="hidden" name="params" value="' . htmlspecialchars($params_string) . '" />';
+	$htmlOutput .= '<input type="hidden" name="paymentName" value="' . $paymentName . '" />';
+	// $htmlOutput .= '<input type="hidden" name="params" value="' . Duitku_Helper::metode_aes(json_encode($params), $password) . '" />';
+	$htmlOutput .= '<input type="hidden" name="params" value="' . base64_encode(json_encode($params)) . '" />';
     $htmlOutput .= '<input type="submit" value="' . $langPayNow . '" />';
     $htmlOutput .= '</form>';
 

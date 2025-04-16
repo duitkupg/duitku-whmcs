@@ -98,45 +98,14 @@ $endpoint = $gatewayParams['endpoint'];
 $currencyCurrent = mysql_fetch_assoc(select_query('tblcurrencies', 'code, rate', array("code"=>$additionalParam)));
 if ($currencyCurrent['code'] != 'IDR'){
 	$currencyDefault = mysql_fetch_assoc(select_query('tblcurrencies', 'code, rate', array("id"=>'1')));
-	$currencyIDR = mysql_fetch_assoc(select_query('tblcurrencies', 'code, rate', array("code"=>'IDR')));
-	//check IDR rate existance
-	if	($currencyIDR['code'] != 'IDR'){
-		throw new Exception('No IDR rate for this site, please contact admin.');
-	}else{
-		//Check Default Currency
-		if ($currencyDefault['code'] != 'IDR'){
-			//Check if Used currency is default
-			if ($currencyCurrent['code'] != $currencyDefault['code']){
-				if ($currencyCurrent['code'] >= $currencyDefault['code']){
-					$paymentAmount = $paymentAmount * $currencyCurrent['rate'];
-					$paymentAmount = $paymentAmount / $currencyIDR['rate'];
-				}else{
-					$paymentAmount = $paymentAmount / $currencyCurrent['rate'];
-					$paymentAmount = $paymentAmount * $currencyIDR['rate'];
-				}
-			}else{
-				if($currencyIDR['rate'] >= $currencyDefault['rate']){
-					$paymentAmount = $paymentAmount / $currencyIDR['rate'];
-				}else{
-					$paymentAmount = $paymentAmount * $currencyIDR['rate'];
-				}
-			}
-		}else{
-			echo "Default IDR";
-			if($currencyCurrent['rate'] >= $currencyDefault['rate']){
-				$paymentAmount = $paymentAmount / $currencyCurrent['rate'];
-			}else{
-				$paymentAmount = $paymentAmount * $currencyCurrent['rate'];
-			}
-		}
+	
+	//Check Default Currency
+	if ($currencyDefault['code'] != 'IDR'){
+		throw new Exception('Default currency is not IDR, please contact admin.');
 	}
+	
+	$paymentAmount = $paymentAmount * $currencyCurrent['rate'];
 }
-
-// $invoice_result = mysql_fetch_assoc(select_query('tblinvoices', 'total, userid', array("id"=>$order_id)));
-// $invoice_amount = $invoice_result['total'];
-// if (($invoice_amount - $paymentAmount) > 0 && ($invoice_amount - $paymentAmount) < 1) {
-// 	$paymentAmount = $invoice_amount;
-//   }
 
 /**
  * Validate Callback Invoice ID.

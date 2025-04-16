@@ -53,37 +53,13 @@ if (empty($_REQUEST['order_id']) || empty($_REQUEST['paymentMethod']) || empty($
 	if ($params->currency != 'IDR') {
 		$currencyCurrent = mysql_fetch_assoc(select_query('tblcurrencies', 'code, rate', array("code"=>$params->currency)));
 		$currencyDefault = mysql_fetch_assoc(select_query('tblcurrencies', 'code, rate', array("id"=>'1')));
-		$currencyIDR = mysql_fetch_assoc(select_query('tblcurrencies', 'code, rate', array("code"=>'IDR')));
-		//check IDR rate existance
-		if	($currencyIDR['code'] != 'IDR'){
-			throw new Exception('No IDR rate for this site, please contact admin.');
-		}else{
-			//Check Default Currency
-			if ($currencyDefault['code'] != 'IDR'){
-				//Check if Used currency is default
-				if ($currencyCurrent['code'] != $currencyDefault['code']){
-					if ($currencyCurrent['code'] >= $currencyDefault['code']){
-						$amount = $amount / $currencyCurrent['rate'];
-						$amount = $amount * $currencyIDR['rate'];
-					}else{
-						$amount = $amount * $currencyCurrent['rate'];
-						$amount = $amount / $currencyIDR['rate'];
-					}
-				}else{
-					if($currencyIDR['rate'] >= $currencyDefault['rate']){
-						$amount = $amount * $currencyIDR['rate'];
-					}else{
-						$amount = $amount / $currencyIDR['rate'];
-					}
-				}
-			}else{
-				if($currencyCurrent['rate'] >= $currencyDefault['rate']){
-					$amount = $amount * $currencyCurrent['rate'];
-				}else{
-					$amount = $amount / $currencyCurrent['rate'];
-				}
-			}
+
+		//Check Default Currency
+		if ($currencyDefault['code'] != 'IDR'){ 
+			throw new Exception('Default currency is not IDR, please contact admin.');
 		}
+		
+		$amount = $amount / $currencyCurrent['rate'];
 	}
 
 	//round up amount for decimals

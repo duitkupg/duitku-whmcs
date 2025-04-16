@@ -2,7 +2,7 @@
 /*
 Plugin Name:  duitku-whmcs
 Description:  Duitku Payment Gateway 
-Version:      2.2
+Version:      2.3
 Author:       Duitku Development Team
 
 Author URI:   http://duitku.com
@@ -18,10 +18,17 @@ Install & activate the plugin. Modify some options in the settings page to suits
 -
 == Changelog ==
 
+= 2.3 June 19, 2020 = 
+
+improvement 2.2 to 2.3 :
+- Add Sahabat Sampoerna
+- Add Artha Graha
+- Bug Double Payment
+
 = 2.2 June 19, 2020 = 
 
 improvement 2.1 to 2.2 :
-- Add Shoppepay Applink & LinkAja Applink
+- Add Shoppepay Applink
 - Add navigator device detection
 
 = 2.1 Mar 12, 2020 = 

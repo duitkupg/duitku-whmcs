@@ -2,7 +2,7 @@
 /*
 Plugin Name:  duitku-whmcs
 Description:  Duitku Payment Gateway 
-Version:      2.11.4
+Version:      2.11.5
 Author:       Duitku Development Team
 
 Author URI:   http://duitku.com
@@ -35,8 +35,11 @@ Install & activate the plugin. Modify some options in the settings page to suits
 -
 == Changelog ==
 
-= 2.11 Jun 23, 2022 =
+= 2.11 Jul 22, 2022 =
+improvement 2.11.4 to 2.11.5 :
+- Fix Bug response callback
 
+= 2.11 Jun 23, 2022 =
 improvement 2.11.3 to 2.11.4 :
 - Fix Bug response callback
 

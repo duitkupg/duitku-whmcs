@@ -32,6 +32,12 @@ switch ($paymentCode) {
 		$gatewayModuleName = "duitku_vamandiri"; break;
 	case "FT":
 		$gatewayModuleName = "duitku_varitel"; break;
+	case "SP":
+		$gatewayModuleName = "duitku_shopee"; break;
+	case "SA":
+		$gatewayModuleName = "duitku_shopeepay_applink"; break;
+	case "LA":
+		$gatewayModuleName = "duitku_linkaja_applink"; break;	
     default:
 		throw new Exception('payment method not recognize.');
 }
@@ -45,7 +51,7 @@ if (!$gatewayParams['type']) {
 
 if (empty($_POST['resultCode']) || empty($_POST['merchantOrderId']) || empty($_POST['reference'])) {
 	throw new Exception('wrong query string please contact admin.');
-}    
+}
 
 $order_id = stripslashes($_POST['merchantOrderId']);
 $status = stripslashes($_POST['resultCode']);
@@ -70,12 +76,12 @@ $endpoint = $gatewayParams['endpoint'];
 $order_id = checkCbInvoiceID($order_id, $gatewayParams['name']);
 checkCbTransID($reference);
 $success = false;
-     
-if ($status == '00' && Duitku_VtWeb::validateTransaction($endpoint, $merchant_code, $order_id, $reference, $api_key)) {
+
+if ($status == '00' && Duitku_WebCore::validateTransaction($endpoint, $merchant_code, $order_id, $reference, $api_key)) {
 	$success = true;
 } else {
 	$success = false;
-}     
+}
 
 if ($success) {
     /**
@@ -95,14 +101,14 @@ if ($success) {
         $paymentAmount,
         0,
         $gatewayModuleName
-    );    
+    );
     echo "Payment success notification accepted";
 }
 else{
 	//Adopted from paypal to log all the failed transaction
 	$orgipn = "";
 	foreach ($_POST as $key => $value) {
-		$orgipn.= ("" . $key . " => " . $value . "\r\n");		
+		$orgipn.= ("" . $key . " => " . $value . "\r\n");
 	}
 	logTransaction($gatewayModuleName, $orgipn, "Duitku Handshake Invalid");
 	header("HTTP/1.0 406 Not Acceptable");

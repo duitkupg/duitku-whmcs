@@ -87,6 +87,13 @@ function duitku_vamaybank_config()
 			'Size' => '100',
 			'Default' => 'https://passport.duitku.com/webapi',
             'Description' => 'Duitku Endpoint, mohon isi merchant code dan api key sebelum mengakses endpoint.',
+        ),
+		'expiryPeriod' => array(
+            'FriendlyName' => 'Duitku Expiry Period',
+            'Type' => 'text',
+            'Size' => '25',
+            'Default' => '1440',
+            'Description' => '<br>The validity period of the transaction before it expires. Max 1440 in minutes.',
         ),        
     );
 }
@@ -112,6 +119,7 @@ function duitku_vamaybank_link($params)
 	$order_id = $params['invoiceid'];	
 	$serverkey = $params['serverkey'];
 	$endpoint = $params['endpoint'];
+	$expiryPeriod = $params['expiryPeriod'];
 	
 	
 	//System parameters
@@ -125,7 +133,40 @@ function duitku_vamaybank_link($params)
     $lastname = $params['clientdetails']['lastname'];
     $email = $params['clientdetails']['email'];
 	$phoneNumber = $params['clientdetails']['phonenumber'];
+	$postalCode = $params['clientdetails']['postcode'];
+	$country = $params['clientdetails']['country'];
+	$address1 = $params['clientdetails']['address1'];
+    $address2 = $params['clientdetails']['address2'];
+	$city = $params['clientdetails']['city'];
+	$description = $params["description"];
 	
+	$ProducItem = array(
+		'name' => $description,
+		'price' => intval($amount),
+		'quantity' => 1
+	);
+	
+	$item_details = array ($ProducItem);
+	
+	$billing_address = array(
+	  'firstName' => $firstname,
+	  'lastName' => $lastname,
+	  'address' => $address1 . " " . $address2,
+	  'city' => $city,
+	  'postalCode' => $postalCode,
+	  'phone' => $phoneNumber,
+	  'countryCode' => $country
+	);
+	
+	$customerDetails = array(
+		'firstName' => $firstname,
+		'lastName' => $lastname,
+		'email' => $email,
+		'phoneNumber' => $phoneNumber,
+		'billingAddress' => $billing_address,
+		'shippingAddress' => $billing_address
+	);
+
 	$signature = md5($merchant_code.$order_id.$amount.$serverkey);
 	
 	// Prepare Parameters	
@@ -137,15 +178,19 @@ function duitku_vamaybank_link($params)
           'productDetails' => $companyName . ' Order : #' . $order_id,
           'additionalParam' => '',
           'merchantUserInfo' => $firstname . " " .  $lastname,
+          'customerVaName' => $firstname . " " .  $lastname,
 		  'email' => $email,
 		  'phoneNumber' => $phoneNumber,
-          'signature' => $signature,          
+          'signature' => $signature, 
+          'expiryPeriod' => $expiryPeriod,		  
           'returnUrl' => $systemUrl."/modules/gateways/callback/duitku_return.php",
-          'callbackUrl' => $systemUrl."/modules/gateways/callback/duitku_callback.php"
+          'callbackUrl' => $systemUrl."/modules/gateways/callback/duitku_callback.php",
+		  'customerDetail' => $customerDetails,
+		  'itemDetails' => $item_details
     );         
 
     try {     
-      $redirUrl = Duitku_VtWeb::getRedirectionUrl($endpoint, $params);      
+      $redirUrl = Duitku_WebCore::getRedirectionUrl($endpoint, $params);      
     }
     catch (Exception $e) {
       error_log('Caught exception: '.$e->getMessage()."\n");

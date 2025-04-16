@@ -125,7 +125,40 @@ function duitku_bca_link($params)
     $lastname = $params['clientdetails']['lastname'];
     $email = $params['clientdetails']['email'];
 	$phoneNumber = $params['clientdetails']['phonenumber'];
+	$postalCode = $params['clientdetails']['postcode'];
+	$country = $params['clientdetails']['country'];
+	$address1 = $params['clientdetails']['address1'];
+    $address2 = $params['clientdetails']['address2'];
+	$city = $params['clientdetails']['city'];
+	$description = $params["description"];
 	
+	$ProducItem = array(
+		'name' => $description,
+		'price' => intval($amount),
+		'quantity' => 1
+	);
+	
+	$item_details = array ($ProducItem);
+	
+	$billing_address = array(
+	  'firstName' => $firstname,
+	  'lastName' => $lastname,
+	  'address' => $address1 . " " . $address2,
+	  'city' => $city,
+	  'postalCode' => $postalCode,
+	  'phone' => $phoneNumber,
+	  'countryCode' => $country
+	);
+	
+	$customerDetails = array(
+		'firstName' => $firstname,
+		'lastName' => $lastname,
+		'email' => $email,
+		'phoneNumber' => $phoneNumber,
+		'billingAddress' => $billing_address,
+		'shippingAddress' => $billing_address
+	);
+
 	$signature = md5($merchant_code.$order_id.$amount.$serverkey);
 	
 	// Prepare Parameters	
@@ -137,15 +170,19 @@ function duitku_bca_link($params)
           'productDetails' => $companyName . ' Order : #' . $order_id,
           'additionalParam' => '',
           'merchantUserInfo' => $firstname . " " .  $lastname,
+          'customerVaName' => $firstname . " " .  $lastname,
 		  'email' => $email,
 		  'phoneNumber' => $phoneNumber,
-          'signature' => $signature,          
+          'signature' => $signature, 
+          'expiryPeriod' => 1440,		  
           'returnUrl' => $systemUrl."/modules/gateways/callback/duitku_return.php",
-          'callbackUrl' => $systemUrl."/modules/gateways/callback/duitku_callback.php"
-    );         
+          'callbackUrl' => $systemUrl."/modules/gateways/callback/duitku_callback.php",
+		  'customerDetail' => $customerDetails,
+		  'itemDetails' => $item_details,
+    );        
 
     try {     
-      $redirUrl = Duitku_VtWeb::getRedirectionUrl($endpoint, $params);      
+      $redirUrl = Duitku_WebCore::getRedirectionUrl($endpoint, $params);      
     }
     catch (Exception $e) {
       error_log('Caught exception: '.$e->getMessage()."\n");

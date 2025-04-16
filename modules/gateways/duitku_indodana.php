@@ -26,10 +26,10 @@ require_once(dirname(__FILE__) . '/duitku-lib/Duitku.php');
  *
  * @return array
  */
-function duitku_vamandiri_MetaData()
+function duitku_indodana_MetaData()
 {
     return array(
-        'DisplayName' => 'Duitku VA MANDIRI Payment Gateway Module',
+        'DisplayName' => 'Duitku Indodana Payment Gateway Module',
         'APIVersion' => '1.0', // Use API Version 1.1
         'DisableLocalCredtCardInput' => true,
         'TokenisedStorage' => true,
@@ -55,14 +55,14 @@ function duitku_vamandiri_MetaData()
  *
  * @return array
  */
-function duitku_vamandiri_config()
+function duitku_indodana_config()
 {
     return array(
         // the friendly display name for a payment gateway should be
         // defined here for backwards compatibility
         'FriendlyName' => array(
             'Type' => 'System',
-            'Value' => 'Duitku VA MANDIRI',
+            'Value' => 'Duitku Indodana',
         ),
         // a text field type allows for single line text input
         'merchantcode' => array(
@@ -70,7 +70,7 @@ function duitku_vamandiri_config()
             'Type' => 'text',
             'Size' => '50',
             'Default' => '',
-            'Description' => 'Input Duitku Merchant Code.',
+            'Description' => 'Input Duitku Merchant Code. ',
         ),
         // a text field type allows for single line text input
         'serverkey' => array(
@@ -87,13 +87,6 @@ function duitku_vamandiri_config()
 			'Size' => '100',
 			'Default' => 'https://passport.duitku.com/webapi',
             'Description' => 'Duitku Endpoint, mohon isi merchant code dan api key sebelum mengakses endpoint.',
-        ),
-		'expiryPeriod' => array(
-            'FriendlyName' => 'Duitku Expiry Period',
-            'Type' => 'text',
-            'Size' => '25',
-            'Default' => '1440',
-            'Description' => '<br>The validity period of the transaction before it expires. Max 1440 in minutes.',
         ),        
     );
 }
@@ -111,7 +104,7 @@ function duitku_vamandiri_config()
  *
  * @return string
  */
-function duitku_vamandiri_link($params)
+function duitku_indodana_link($params)
 {
 	//set parameters for Duitku inquiry
     $merchant_code = $params['merchantcode'];
@@ -119,7 +112,6 @@ function duitku_vamandiri_link($params)
 	$order_id = $params['invoiceid'];	
 	$serverkey = $params['serverkey'];
 	$endpoint = $params['endpoint'];
-	$expiryPeriod = $params['expiryPeriod'];
 	
 	
 	//System parameters
@@ -173,7 +165,7 @@ function duitku_vamandiri_link($params)
     $params = array(
           'merchantCode' => $merchant_code, // API Key Merchant /
           'paymentAmount' => $amount, //transform order into integer
-          'paymentMethod' => "M1",
+          'paymentMethod' => "DN",
           'merchantOrderId' => $order_id,
           'productDetails' => $companyName . ' Order : #' . $order_id,
           'additionalParam' => '',
@@ -182,11 +174,11 @@ function duitku_vamandiri_link($params)
 		  'email' => $email,
 		  'phoneNumber' => $phoneNumber,
           'signature' => $signature, 
-          'expiryPeriod' => $expiryPeriod,		  
+          'expiryPeriod' => 1440,		  
           'returnUrl' => $systemUrl."/modules/gateways/callback/duitku_return.php",
           'callbackUrl' => $systemUrl."/modules/gateways/callback/duitku_callback.php",
 		  'customerDetail' => $customerDetails,
-		  'itemDetails' => $item_details
+		  'itemDetails' => $item_details,
     );         
 
     try {     
@@ -196,10 +188,9 @@ function duitku_vamandiri_link($params)
       error_log('Caught exception: '.$e->getMessage()."\n");
     }		
 	
-	$img       = $systemUrl . "/modules/gateways/duitku-images/duitku_vamandiri.png"; 
-    $htmlOutput .= '<img style="width: 152px;" src="' . $img . '" alt="VA MANDIRI"><br>';
+	$img       = $systemUrl . "/modules/gateways/duitku-images/duitku_indodana.png"; 
+    $htmlOutput .= '<img style="width: 152px;" src="' . $img . '" alt="INDODANA"><br>';
 	$htmlOutput .= '<button onClick="javascript:window.location.href=\'' . $redirUrl . '\'">' . $langPayNow . '</button>';
-    
-    
+        
     return $htmlOutput;
 }

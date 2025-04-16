@@ -1,0 +1,41 @@
+=== duitku WHMCS ===
+/*
+Plugin Name:  duitku-whmcs
+Description:  Duitku Payment Gateway 
+Version:      2.2
+Author:       Duitku Development Team
+
+Author URI:   http://duitku.com
+License:      GPL2
+License URI:  https://www.gnu.org/licenses/gpl-2.0.html
+*/
+== Installation ==
+
+Install & activate the plugin. Modify some options in the settings page to suits your need.
+
+== Screenshots ==
+
+-
+== Changelog ==
+
+= 2.2 June 19, 2020 = 
+
+improvement 2.1 to 2.2 :
+- Add Shoppepay Applink & LinkAja Applink
+- Add navigator device detection
+
+= 2.1 Mar 12, 2020 = 
+
+improvement 2.0 to 2.1 :
+- Improve parameter Duitku Expiry Period
+
+= 2.0 Feb 06, 2020 = 
+
+improvement 1.0 to 2.0 :
+- upgrade API v2
+- add ShopeePay
+- add Indodana
+
+= 1.0 =
+
+Initial Public Release

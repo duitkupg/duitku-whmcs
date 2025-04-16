@@ -10,7 +10,7 @@
  *
  * Module developed based on official WHMCS Sample Payment Gateway Module
  * 
- * @author timur@chakratechnology.com
+ * @author anggiyawan@chakratechnology.com
  */
 if (!defined("WHMCS")) {
     die("This file cannot be accessed directly");
@@ -26,10 +26,10 @@ require_once(dirname(__FILE__) . '/duitku-lib/Duitku.php');
  *
  * @return array
  */
-function duitku_cc_MetaData()
+function duitku_dana_MetaData()
 {
     return array(
-        'DisplayName' => 'Duitku Credit Card Payment Gateway Module',
+        'DisplayName' => 'Duitku DANA Payment Gateway Module',
         'APIVersion' => '1.0', // Use API Version 1.1
         'DisableLocalCredtCardInput' => true,
         'TokenisedStorage' => true,
@@ -55,14 +55,14 @@ function duitku_cc_MetaData()
  *
  * @return array
  */
-function duitku_cc_config()
+function duitku_dana_config()
 {
     return array(
         // the friendly display name for a payment gateway should be
         // defined here for backwards compatibility
         'FriendlyName' => array(
             'Type' => 'System',
-            'Value' => 'Duitku Creditcard',
+            'Value' => 'Duitku DANA',
         ),
         // a text field type allows for single line text input
         'merchantcode' => array(
@@ -87,6 +87,13 @@ function duitku_cc_config()
 			'Size' => '100',
 			'Default' => 'https://passport.duitku.com/webapi',
             'Description' => 'Duitku Endpoint, mohon isi merchant code dan api key sebelum mengakses endpoint.',
+        ),
+		'expiryPeriod' => array(
+            'FriendlyName' => 'Duitku Expiry Period',
+            'Type' => 'text',
+            'Size' => '25',
+            'Default' => '1440',
+            'Description' => '<br>The validity period of the transaction before it expires. Max 60 in minutes.',
         ),        
     );
 }
@@ -104,7 +111,7 @@ function duitku_cc_config()
  *
  * @return string
  */
-function duitku_cc_link($params)
+function duitku_dana_link($params)
 {
 		
 	//set session Order
@@ -115,10 +122,10 @@ function duitku_cc_link($params)
 	$systemUrl = $params['systemurl'];
     $returnUrl = $params['returnurl'];
 	$langPayNow = $params['langpaynow'];
-	$paymentMethod = "VC"; // PaymentMethod For Duitku
+	$paymentMethod = "DA"; // PaymentMethod For Duitku
 	
-	$img       = $systemUrl . "/modules/gateways/duitku-images/cc.png"; 
-    $htmlOutput .= '<img style="width: 152px;" src="' . $img . '" alt="creditcard"><br>';
+	$img       = $systemUrl . "/modules/gateways/duitku-images/duitku_dana.png"; 
+    $htmlOutput .= '<img style="width: 152px;" src="' . $img . '" alt="DANA"><br>';
 
 	$_SESSION['duitkuOrder'] = $params;
 	$htmlOutput .= '<form method="post" action="' . $systemUrl."/modules/gateways/callback/duitku_accept.php" . '">';

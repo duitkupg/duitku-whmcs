@@ -16,6 +16,8 @@ switch ($paymentCode) {
 		$gatewayModuleName = "duitku_ovo"; break;
 	case "VC":
 		$gatewayModuleName = "duitku_cc"; break;
+	case "MG":
+		$gatewayModuleName = "duitku_migs"; break;
 	case "BK":
 		$gatewayModuleName = "duitku_bca"; break;
 	case "BT":
@@ -39,7 +41,9 @@ switch ($paymentCode) {
 	case "SA":
 		$gatewayModuleName = "duitku_shopeepay_applink"; break;
 	case "LA":
-		$gatewayModuleName = "duitku_linkaja_applink"; break;	
+		$gatewayModuleName = "duitku_linkaja_applink"; break;
+	case "LF":
+		$gatewayModuleName = "duitku_linkaja_applink"; break;		
 	case "BC":
 		$gatewayModuleName = "duitku_vabca"; break;
     default:

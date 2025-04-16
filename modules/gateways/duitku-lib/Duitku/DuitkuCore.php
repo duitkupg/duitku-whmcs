@@ -7,7 +7,11 @@ class Duitku_WebCore {
     //$payloads = array();
     //$payloads = array_replace_recursive($payloads, $params);    
     
-    $result = Duitku_ApiRequestor::post($baseUrl . '/api/merchant/v2/inquiry',$params);
+   if ($params['paymentMethod'] == 'MG') {
+        $result = Duitku_ApiRequestor::post($baseUrl . '/api/merchant/creditcard/inquiry',$params);
+    } else {
+        $result = Duitku_ApiRequestor::post($baseUrl . '/api/merchant/v2/inquiry',$params);
+    }
 
     //var_dump($result);
     //die();

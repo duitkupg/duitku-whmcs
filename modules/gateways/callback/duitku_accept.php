@@ -23,6 +23,7 @@ if (empty($_REQUEST['order_id']) || empty($_REQUEST['paymentMethod']) || empty($
 	$serverkey = $params['serverkey'];
 	$endpoint = $params['endpoint'];
 	$expiryPeriod = $params['expiryPeriod'];
+	$credcode = $params['credcode'];
 	
 	if (empty($merchant_code) || empty($serverkey) || empty($endpoint)) {
 		echo "Please Check Duitku Configuration Payment";
@@ -95,6 +96,10 @@ if (empty($_REQUEST['order_id']) || empty($_REQUEST['paymentMethod']) || empty($
 		  'customerDetail' => $customerDetails,
 		  'itemDetails' => $item_details
     );
+
+    if ($params['paymentMethod'] == 'MG') {
+    	$params['credCode'] = $credcode;
+    }
 	
 
 	try {  

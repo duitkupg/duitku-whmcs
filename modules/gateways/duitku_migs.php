@@ -26,10 +26,10 @@ require_once(dirname(__FILE__) . '/duitku-lib/Duitku.php');
  *
  * @return array
  */
-function duitku_cc_MetaData()
+function duitku_migs_MetaData()
 {
     return array(
-        'DisplayName' => 'Duitku Credit Card Payment Gateway Module',
+        'DisplayName' => 'Duitku Credit Card MIGS Payment Gateway Module',
         'APIVersion' => '1.0', // Use API Version 1.1
         'DisableLocalCredtCardInput' => true,
         'TokenisedStorage' => true,
@@ -55,14 +55,14 @@ function duitku_cc_MetaData()
  *
  * @return array
  */
-function duitku_cc_config()
+function duitku_migs_config()
 {
     return array(
         // the friendly display name for a payment gateway should be
         // defined here for backwards compatibility
         'FriendlyName' => array(
             'Type' => 'System',
-            'Value' => 'Duitku Creditcard',
+            'Value' => 'Duitku Creditcard MIGS',
         ),
         // a text field type allows for single line text input
         'merchantcode' => array(
@@ -79,6 +79,14 @@ function duitku_cc_config()
             'Size' => '50',
             'Default' => '',
             'Description' => 'Input Duitku API Key.',
+        ),
+        // a text field type allows for single line text input
+        'credcode' => array(
+            'FriendlyName' => 'Duitku Credential Code',
+            'Type' => 'text',
+            'Size' => '50',
+            'Default' => '',
+            'Description' => 'Input Duitku Credential Code',
         ),
         // the dropdown field type renders a select menu of options
         'endpoint' => array(
@@ -104,7 +112,7 @@ function duitku_cc_config()
  *
  * @return string
  */
-function duitku_cc_link($params)
+function duitku_migs_link($params)
 {
 		
 	//set session Order
@@ -115,9 +123,9 @@ function duitku_cc_link($params)
 	$systemUrl = $params['systemurl'];
     $returnUrl = $params['returnurl'];
 	$langPayNow = $params['langpaynow'];
-	$paymentMethod = "VC"; // PaymentMethod For Duitku
+	$paymentMethod = "MG"; // PaymentMethod For Duitku
 	
-	$img       = $systemUrl . "/modules/gateways/duitku-images/cc.png"; 
+	$img       = $systemUrl . "/modules/gateways/duitku-images/migs.png"; 
     $htmlOutput .= '<img style="width: 152px;" src="' . $img . '" alt="creditcard"><br>';
 
 	$_SESSION['duitkuOrder'] = $params;

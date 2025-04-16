@@ -165,13 +165,13 @@ if ($success) {
     echo "Payment success notification accepted";
 }
 else{
-	//Adopted from paypal to log all the failed transaction
+	//log all the failed transaction
 	$orgipn = "";
 	foreach ($_POST as $key => $value) {
 		$orgipn.= ("" . $key . " => " . $value . "\r\n");
 	}
 	logTransaction($gatewayModuleName, $orgipn, "Duitku Handshake Invalid");
-	header("HTTP/1.0 406 Not Acceptable");
+	header("HTTP/1.0 200 OK");
 	exit();
 }
 

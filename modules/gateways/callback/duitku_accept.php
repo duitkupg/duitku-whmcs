@@ -62,13 +62,26 @@ if (empty($_REQUEST['order_id']) || empty($_REQUEST['paymentMethod']) || empty($
 			if ($currencyDefault['code'] != 'IDR'){
 				//Check if Used currency is default
 				if ($currencyCurrent['code'] != $currencyDefault['code']){
-					$amount = $amount / $currencyCurrent['rate'];
-					$amount = $amount * $currencyIDR['rate'];
+					if ($currencyCurrent['code'] >= $currencyDefault['code']){
+						$amount = $amount / $currencyCurrent['rate'];
+						$amount = $amount * $currencyIDR['rate'];
+					}else{
+						$amount = $amount * $currencyCurrent['rate'];
+						$amount = $amount / $currencyIDR['rate'];
+					}
 				}else{
-					$amount = $amount * $currencyIDR['rate'];
+					if($currencyIDR['rate'] >= $currencyDefault['rate']){
+						$amount = $amount * $currencyIDR['rate'];
+					}else{
+						$amount = $amount / $currencyIDR['rate'];
+					}
 				}
 			}else{
-				$amount = $amount * $currencyCurrent['rate'];
+				if($currencyCurrent['rate'] >= $currencyDefault['rate']){
+					$amount = $amount * $currencyCurrent['rate'];
+				}else{
+					$amount = $amount / $currencyCurrent['rate'];
+				}
 			}
 		}
 	}

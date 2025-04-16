@@ -149,5 +149,4 @@ function duitku_vacimb_link($params)
     $htmlOutput .= '</form>';
 
     return $htmlOutput;
-
 }

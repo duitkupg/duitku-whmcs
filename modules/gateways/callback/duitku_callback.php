@@ -107,13 +107,27 @@ if ($currencyCurrent['code'] != 'IDR'){
 		if ($currencyDefault['code'] != 'IDR'){
 			//Check if Used currency is default
 			if ($currencyCurrent['code'] != $currencyDefault['code']){
-				$paymentAmount = $paymentAmount / $currencyIDR['rate'];
-				$paymentAmount = $paymentAmount * $currencyCurrent['rate'];
+				if ($currencyCurrent['code'] >= $currencyDefault['code']){
+					$paymentAmount = $paymentAmount * $currencyCurrent['rate'];
+					$paymentAmount = $paymentAmount / $currencyIDR['rate'];
+				}else{
+					$paymentAmount = $paymentAmount / $currencyCurrent['rate'];
+					$paymentAmount = $paymentAmount * $currencyIDR['rate'];
+				}
 			}else{
-				$paymentAmount = $paymentAmount / $currencyIDR['rate'];
+				if($currencyIDR['rate'] >= $currencyDefault['rate']){
+					$paymentAmount = $paymentAmount / $currencyIDR['rate'];
+				}else{
+					$paymentAmount = $paymentAmount * $currencyIDR['rate'];
+				}
 			}
 		}else{
-			$paymentAmount = $paymentAmount / $currencyCurrent['rate'];
+			echo "Default IDR";
+			if($currencyCurrent['rate'] >= $currencyDefault['rate']){
+				$paymentAmount = $paymentAmount / $currencyCurrent['rate'];
+			}else{
+				$paymentAmount = $paymentAmount * $currencyCurrent['rate'];
+			}
 		}
 	}
 }

@@ -2,7 +2,7 @@
 /*
 Plugin Name:  duitku-whmcs
 Description:  Duitku Payment Gateway 
-Version:      2.11.9
+Version:      2.11.10
 Author:       Duitku Development Team
 
 Author URI:   http://duitku.com
@@ -35,11 +35,12 @@ Install & activate the plugin. Modify some options in the settings page to suits
 -
 == Changelog ==
 
-improvement 2.11.8 to 2.11.9 :
-- Add Atome payment
+improvement 2.11.9 to 2.11.10 :
+- Enhance rate calculation
 
 improvement 2.11.7 to 2.11.8 :
-- Fix Bug Va CIMB
+- Add Atome payment
+
 
 improvement 2.11.6 to 2.11.7 :
 - Add security hash whes request transaction before post to API and encode parameter

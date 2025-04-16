@@ -11,12 +11,34 @@ License URI:  https://www.gnu.org/licenses/gpl-2.0.html
 */
 == Installation ==
 
+1. Unduh plugin duitku whmcs [disini](file:///C:/Users/rayhan/Desktop/Duitku-Documentation/trunk/duitku-docs/common/files/duitku-whmcs-v2.9.zip)
+2. Masuk ke file manager hosting Anda lalu ke folder/direktori instalasi WHMCS Anda
+3. Unggah file plugin yang sebelumnya telah didownload
+4. Setelah berhasil menggunggah file plugin, klik kanan pada file plugin dan pilih Extract
+5. Setelah proses unggah selesai, log in ke dalam admin WHMCS anda.
+6. Pada halaman admin WHMCS anda, klik menu Setup, arahkan kursor ke submenu Payments lalu pilih Payment Gateways.
+7. Pada halaman Payment Gateways, klik tab All Payment Gateways, lalu klik pada Duitku BCA Klikpay, Duitku CreditCard, Duitku CIMB Clicks, Duitku Mandiri, Duitku VA Permata, atau modul payment gateway Duitku yang anda ingin aktifkan.
+8. Apabila payment gateway sudah berubah menjadi hijau, maka payment gateway tersebut sudah di aktifkan.
+9. Setelah payment gateway diaktifkan, klik tab Manage Existing Gateway.
+10. Akan muncul tampilan konfigurasi untuk payment gateway yang anda aktifkan,
+	- Duitku Merchant Code: masukkan Merchant Code anda yang anda dapatkan dari Project di laman merchant Duitku
+	- Duitku API Key: masukkan Project API Key yang anda dapatkan dari Project di laman merchant Duitku
+	- Duitku Endpoint: Apabila integrasi masih dalam tahap development, gunakan alamat ini https://sandbox.duitku.com/webapi
+	- Duitku Endpoint: Apabila integrasi sudah dalam tahap production, gunakan alamat ini https://passport.duitku.com/webapi
+11. Setelah selesai mengisi form konfigurasi, klik Save Changes, lalu ulangi pada payment gateway duitku yang lain.
+
+For whmcs documentation you may see here: https://developers.whmcs.com/payment-gateways/installation-activation/
 Install & activate the plugin. Modify some options in the settings page to suits your need.
 
 == Screenshots ==
 
 -
 == Changelog ==
+
+
+= 2.9.1 Okt 18, 2021 =
+- Add round up for decimal values
+- Add Convert to IDR if default currency isn't Rupiah 
 
 = 2.5 Nov 16, 2020 = 
 

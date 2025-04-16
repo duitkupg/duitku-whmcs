@@ -15,21 +15,37 @@ if (empty($_REQUEST['order_id']) || empty($_REQUEST['paymentMethod']) || empty($
 
 	//get Params Session
 	$params = $_SESSION['duitkuOrder'];
-
+	
 	//set parameters for Duitku inquiry
     $merchant_code = $params['merchantcode'];
-    $amount = (int)$params['amount'];
+    $amount = (int)$params['amount'];//(int)ceil($params['amount']);//
 	$order_id = $params['invoiceid'];	
 	$serverkey = $params['serverkey'];
 	$endpoint = $params['endpoint'];
 	$expiryPeriod = $params['expiryPeriod'];
 	$credcode = $params['credcode'];
+	$currencyId = $params['currencyId'];
 	
 	if (empty($merchant_code) || empty($serverkey) || empty($endpoint)) {
 		echo "Please Check Duitku Configuration Payment";
 		exit;
 	}
 	
+	//check if currency not IDR
+	if ($params['currency'] != 'IDR') {
+		//get IDR rate
+		$currencyIDR = mysql_fetch_assoc(select_query('tblcurrencies', 'code, rate', array("code"=>'IDR')));
+		if	($currencyIDR['code'] != 'IDR'){
+			throw new Exception('No IDR rate for this site, please contact admin.');
+		}else{
+			//Convert amount currency to IDR amount currency
+			$amount = $currencyIDR['rate'] * $amount;
+		}
+	}
+
+	//round up amount for decimals
+	$amount = ceil($amount);
+
 	//System parameters
 	$companyName = $params['companyname'];
 	$systemUrl = $params['systemurl'];

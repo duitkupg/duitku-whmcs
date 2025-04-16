@@ -6,7 +6,6 @@ $whmcs->load_function("invoice");
 require_once __DIR__ . '/../duitku-lib/Duitku.php';
 
 $gatewayModuleName = "";
-
 // check if the module is activated
 /*--- start ---*/
 $paymentCode= stripslashes($_POST['paymentCode']);
@@ -76,6 +75,25 @@ $merchant_code = $gatewayParams['merchantcode'];
 $api_key = $gatewayParams['serverkey'];
 $endpoint = $gatewayParams['endpoint'];
 
+//check if currency not IDR
+$currencyDefault = mysql_fetch_assoc(select_query('tblcurrencies', 'code, rate', array("id"=>'1')));
+if ($currencyDefault['code'] != 'IDR') {
+	//get IDR rate
+	$currencyIDR = mysql_fetch_assoc(select_query('tblcurrencies', 'code, rate', array("code"=>'IDR')));
+	if	($currencyIDR['code'] != 'IDR'){
+		throw new Exception('No IDR rate for this site, please contact admin.');
+	}else{
+		//Convert amount currency from IDR amount currency
+		$paymentAmount = $paymentAmount / $currencyIDR['rate'];
+	}
+}
+
+// $invoice_result = mysql_fetch_assoc(select_query('tblinvoices', 'total, userid', array("id"=>$order_id)));
+// $invoice_amount = $invoice_result['total'];
+// if (($invoice_amount - $paymentAmount) > 0 && ($invoice_amount - $paymentAmount) < 1) {
+// 	$paymentAmount = $invoice_amount;
+//   }
+
 /**
  * Validate Callback Invoice ID.
  *
@@ -86,10 +104,12 @@ $endpoint = $gatewayParams['endpoint'];
  *
  * Returns a normalised invoice ID.
  */
-
+// echo $paymentAmount;
+// echo "Masuk die";
 $order_id = checkCbInvoiceID($order_id, $gatewayParams['name']);
 checkCbTransID($reference);
 $success = false;
+// echo "Masuk die 2";
 
 if ($status == '00' && Duitku_WebCore::validateTransaction($endpoint, $merchant_code, $order_id, $reference, $api_key)) {
 	$success = true;

@@ -132,6 +132,7 @@ function duitku_vacimb_link($params)
     unset($params['expiryPeriod']);
     unset($params['password']);
     unset($params['clientdetails']['password']);
+	$securityHash = Duitku_Helper::metode_hash(json_encode($params), $password);
 	
 	$img       = $systemUrl . "/modules/gateways/duitku-images/duitku_vacimb.png"; 
     $htmlOutput .= '<img style="width: 152px;" src="' . $img . '" alt="VA CIMB"><br>';
@@ -141,6 +142,7 @@ function duitku_vacimb_link($params)
 	$htmlOutput .= '<input type="hidden" name="order_id" value="' . $order_id . '" />';
 	$htmlOutput .= '<input type="hidden" name="paymentMethod" value="' . $paymentMethod . '" />';
 	$htmlOutput .= '<input type="hidden" name="paymentName" value="' . $paymentName . '" />';
+	$htmlOutput .= '<input type="hidden" name="securityHash" value="' . $securityHash . '" />';
 	// $htmlOutput .= '<input type="hidden" name="params" value="' . Duitku_Helper::metode_aes(json_encode($params), $password) . '" />';
 	$htmlOutput .= '<input type="hidden" name="params" value="' . base64_encode(json_encode($params)) . '" />';
     $htmlOutput .= '<input type="submit" value="' . $langPayNow . '" />';

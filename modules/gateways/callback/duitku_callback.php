@@ -38,6 +38,8 @@ switch ($paymentCode) {
 		$gatewayModuleName = "duitku_shopeepay_applink"; break;
 	case "LA":
 		$gatewayModuleName = "duitku_linkaja_applink"; break;	
+	case "BC":
+		$gatewayModuleName = "duitku_vabca"; break;
     default:
 		throw new Exception('payment method not recognize.');
 }

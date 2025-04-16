@@ -18,7 +18,10 @@ Install & activate the plugin. Modify some options in the settings page to suits
 -
 == Changelog ==
 
-= 2.3 June 19, 2020 = 
+= 2.4 Oct 13, 2020 = 
+
+improvement 2.3 to 2.4 :
+- Add BCA Virtual Accunt
 
 improvement 2.2 to 2.3 :
 - Add Sahabat Sampoerna

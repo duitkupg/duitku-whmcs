@@ -7,7 +7,7 @@ class Duitku_Config {
   public static $isProduction = false;  
   public static $isSanitized = true;
 
-  const SANDBOX_BASE_URL = 'http://sandbox.duitku.com/webapi';
+  const SANDBOX_BASE_URL = 'https://sandbox.duitku.com/webapi';
   const PRODUCTION_BASE_URL = 'https://passport.duitku.com/webapi';
 
   public static function getBaseUrl()

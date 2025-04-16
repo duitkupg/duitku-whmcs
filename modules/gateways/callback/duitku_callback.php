@@ -46,6 +46,16 @@ switch ($paymentCode) {
 		$gatewayModuleName = "duitku_linkaja_applink"; break;		
 	case "BC":
 		$gatewayModuleName = "duitku_vabca"; break;
+	case "LQ":
+		$gatewayModuleName = "duitku_linkaja_qris"; break;
+	case "DA":
+		$gatewayModuleName = "duitku_dana"; break;
+	case "AG":
+		$gatewayModuleName = "duitku_artha"; break;
+	case "DN":
+		$gatewayModuleName = "duitku_indodana"; break;
+	case "S1":
+		$gatewayModuleName = "duitku_sampoerna"; break;
     default:
 		throw new Exception('payment method not recognize.');
 }

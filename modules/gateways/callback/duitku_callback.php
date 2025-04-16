@@ -85,16 +85,27 @@ $merchant_code = $gatewayParams['merchantcode'];
 $api_key = $gatewayParams['serverkey'];
 $endpoint = $gatewayParams['endpoint'];
 
-//check if currency not IDR
-$currencyDefault = mysql_fetch_assoc(select_query('tblcurrencies', 'code, rate', array("id"=>'1')));
-if ($currencyDefault['code'] != 'IDR') {
-	//get IDR rate
+//check current currency
+$currencyCurrent = mysql_fetch_assoc(select_query('tblcurrencies', 'code, rate', array("code"=>$additionalParam)));
+if ($currencyCurrent['code'] != 'IDR'){
+	$currencyDefault = mysql_fetch_assoc(select_query('tblcurrencies', 'code, rate', array("id"=>'1')));
 	$currencyIDR = mysql_fetch_assoc(select_query('tblcurrencies', 'code, rate', array("code"=>'IDR')));
+	//check IDR rate existance
 	if	($currencyIDR['code'] != 'IDR'){
 		throw new Exception('No IDR rate for this site, please contact admin.');
 	}else{
-		//Convert amount currency from IDR amount currency
-		$paymentAmount = $paymentAmount / $currencyIDR['rate'];
+		//Check Default Currency
+		if ($currencyDefault['code'] != 'IDR'){
+			//Check if Used currency is default
+			if ($currencyCurrent['code'] != $currencyDefault['code']){
+				$paymentAmount = $paymentAmount / $currencyIDR['rate'];
+				$paymentAmount = $paymentAmount * $currencyCurrent['rate'];
+			}else{
+				$paymentAmount = $paymentAmount / $currencyIDR['rate'];
+			}
+		}else{
+			$paymentAmount = $paymentAmount / $currencyCurrent['rate'];
+		}
 	}
 }
 

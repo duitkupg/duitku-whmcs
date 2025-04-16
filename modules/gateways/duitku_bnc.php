@@ -124,7 +124,7 @@ function duitku_bnc_link($params)
 	$paymentMethod = "NC"; // PaymentMethod For Duitku
 	
 	$img       	= $systemUrl . "/modules/gateways/duitku-images/duitku_bnc.png"; 
-    $htmlOutput .= '<img style="width: 152px;" src="' . $img . '" alt="Duitku BNC/Bank Neo Commerce"><br>';
+    $htmlOutput .= '<img style="width: 52px;" src="' . $img . '" alt="Duitku BNC/Bank Neo Commerce"><br>';
 
 	$_SESSION['duitkuOrder'] = $params;
 	$htmlOutput .= '<form method="post" action="' . $systemUrl."/modules/gateways/callback/duitku_accept.php" . '">';

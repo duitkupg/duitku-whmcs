@@ -133,7 +133,7 @@ function duitku_bnc_link($params)
     unset($params['clientdetails']['password']);
 	$securityHash = Duitku_Helper::metode_hash(json_encode($params), $password);
 	
-	$img       	= $systemUrl . "/modules/gateways/duitku-images/duitku_bnc.png"; 
+	$img       	= $systemUrl . "/modules/gateways/duitku_bnc/logo.png"; 
     $htmlOutput .= '<img style="width: 52px;" src="' . $img . '" alt="Duitku BNC/Bank Neo Commerce"><br>';
     
 	// $_SESSION['duitkuOrder'] = $params;

@@ -1,0 +1,31 @@
+{
+    "schema": "1.0",
+    "type": "whmcs-gateways",
+    "name": "duitku_cc",
+    "license": "MIT",
+    "category": "payments",
+    "description": {
+        "name": "Credit Card - Duitku Payment Gateway Module",
+        "tagline": "Credit Card via Duitku Payment Gateways💸",
+        "long": "Receive payment from Credit Card via Duitku.",
+        "features": [
+			"Credit Card"
+        ]
+    },
+    "logo": {
+        "filename": "logo.png"
+    },
+    "support": {
+        "homepage": "https:\/\/www.duitku.com\/", 
+        "learn_more": "https:\/\/docs.duitku.com", 
+        "email": "support@duitku.com", 
+        "support_url": "https:\/\/dashboard.duitku.com",
+        "docs_url": "https:\/\/docs.duitku.com\/payment-gateway\/plugin\/"
+    },
+    "authors": [
+        {
+            "name": "Duitku",
+            "homepage": "https:\/\/duitku.com"
+        }
+    ]
+}

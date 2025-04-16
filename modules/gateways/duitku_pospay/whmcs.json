@@ -1,0 +1,32 @@
+{
+    "schema": "1.0",
+    "type": "whmcs-gateways",
+    "name": "duitku_pospay",
+    "license": "MIT",
+    "category": "payments",
+    "description": {
+        "name": "PosPay (POS Indonesia) - Duitku Payment Gateway Module",
+        "tagline": "PosPay (POS Indonesia) via Duitku Payment Gateways💸",
+        "long": "Receive payment from PosPay (POS Indonesia) via Duitku.",
+        "features": [
+			"PosPay",
+            "POS Indonesia Payment"
+        ]
+    },
+    "logo": {
+        "filename": "logo.png"
+    },
+    "support": {
+        "homepage": "https:\/\/www.duitku.com\/", 
+        "learn_more": "https:\/\/docs.duitku.com", 
+        "email": "support@duitku.com", 
+        "support_url": "https:\/\/dashboard.duitku.com",
+        "docs_url": "https:\/\/docs.duitku.com\/payment-gateway\/plugin\/"
+    },
+    "authors": [
+        {
+            "name": "Duitku",
+            "homepage": "https:\/\/duitku.com"
+        }
+    ]
+}

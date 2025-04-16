@@ -134,7 +134,7 @@ function duitku_dana_link($params)
     unset($params['clientdetails']['password']);
 	$securityHash = Duitku_Helper::metode_hash(json_encode($params), $password);
 	
-	$img       = $systemUrl . "/modules/gateways/duitku-images/duitku_dana.png"; 
+	$img       = $systemUrl . "/modules/gateways/duitku_dana/logo.png"; 
     $htmlOutput .= '<img style="width: 152px;" src="' . $img . '" alt="DANA"><br>';
     
 	// $_SESSION['duitkuOrder'] = $params;

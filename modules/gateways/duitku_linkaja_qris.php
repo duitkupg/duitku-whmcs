@@ -134,7 +134,7 @@ function duitku_linkaja_qris_link($params)
     unset($params['clientdetails']['password']);
 	$securityHash = Duitku_Helper::metode_hash(json_encode($params), $password);
 	
-	$img       = $systemUrl . "/modules/gateways/duitku-images/duitku_linkaja_applink.png"; 
+	$img       = $systemUrl . "/modules/gateways/duitku_linkaja_qris/logo.png"; 
     $htmlOutput .= '<img style="width: 152px;" src="' . $img . '" alt="VA ATM Bersama"><br>';
     
 	// $_SESSION['duitkuOrder'] = $params;

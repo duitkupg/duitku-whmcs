@@ -135,7 +135,7 @@ function duitku_migs_link($params)
     unset($params['clientdetails']['password']);
 	$securityHash = Duitku_Helper::metode_hash(json_encode($params), $password);
 	
-	$img       = $systemUrl . "/modules/gateways/duitku-images/migs.png"; 
+	$img       = $systemUrl . "/modules/gateways/duitku_migs/logo.png"; 
     $htmlOutput .= '<img style="width: 152px;" src="' . $img . '" alt="creditcard"><br>';
     
 	// $_SESSION['duitkuOrder'] = $params;

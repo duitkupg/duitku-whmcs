@@ -134,7 +134,7 @@ function duitku_vabni_link($params)
     unset($params['clientdetails']['password']);
 	$securityHash = Duitku_Helper::metode_hash(json_encode($params), $password);
 	
-	$img       = $systemUrl . "/modules/gateways/duitku-images/duitku_vabni.png"; 
+	$img       = $systemUrl . "/modules/gateways/duitku_vabni/logo.png"; 
     $htmlOutput .= '<img style="width: 152px;" src="' . $img . '" alt="VA BNI"><br>';
     
 	// $_SESSION['duitkuOrder'] = $params;

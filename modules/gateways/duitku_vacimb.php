@@ -134,7 +134,7 @@ function duitku_vacimb_link($params)
     unset($params['clientdetails']['password']);
 	$securityHash = Duitku_Helper::metode_hash(json_encode($params), $password);
 	
-	$img       = $systemUrl . "/modules/gateways/duitku-images/duitku_vacimb.png"; 
+	$img       = $systemUrl . "/modules/gateways/duitku_vacimb/logo.png"; 
     $htmlOutput .= '<img style="width: 152px;" src="' . $img . '" alt="VA CIMB"><br>';
 
 	// $_SESSION['duitkuOrder'] = $params;

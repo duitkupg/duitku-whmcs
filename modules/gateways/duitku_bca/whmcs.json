@@ -1,0 +1,31 @@
+{
+    "schema": "1.0",
+    "type": "whmcs-gateways",
+    "name": "duitku_bca",
+    "license": "MIT",
+    "category": "payments",
+    "description": {
+        "name": "BCA Click Pay (No Longer Supported)",
+        "tagline": "BCA Click Pay via Duitku Payment Gateways💸",
+        "long": "Receive payment from BCA Click Pay via Duitku.",
+        "features": [
+			"BCA Click Pay(No Longer Supported)"
+        ]
+    },
+    "logo": {
+        "filename": "logo.png"
+    },
+    "support": {
+        "homepage": "https:\/\/www.duitku.com\/", 
+        "learn_more": "https:\/\/docs.duitku.com", 
+        "email": "support@duitku.com", 
+        "support_url": "https:\/\/dashboard.duitku.com",
+        "docs_url": "https:\/\/docs.duitku.com\/payment-gateway\/plugin\/"
+    },
+    "authors": [
+        {
+            "name": "Duitku",
+            "homepage": "https:\/\/duitku.com"
+        }
+    ]
+}

@@ -134,7 +134,7 @@ function duitku_shopeepay_applink_link($params)
   unset($params['clientdetails']['password']);
 	$securityHash = Duitku_Helper::metode_hash(json_encode($params), $password);
 	
-	$img       = $systemUrl . "/modules/gateways/duitku-images/duitku_shopeepay_applink.png";
+	$img       = $systemUrl . "/modules/gateways/duitku_shopeepay_applink/logo.png";
 	$htmlOutput .= '<img style="width: 152px;" src="' . $img . '" alt="SHOPEEPAY APPLINK"><br>';
   
 	// $_SESSION['duitkuOrder'] = $params;

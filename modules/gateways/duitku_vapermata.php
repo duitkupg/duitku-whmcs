@@ -133,7 +133,7 @@ function duitku_vapermata_link($params)
     unset($params['clientdetails']['password']);
 	$securityHash = Duitku_Helper::metode_hash(json_encode($params), $password);
 	
-	$img       = $systemUrl . "/modules/gateways/duitku-images/duitku_vapermata.png"; 
+	$img       = $systemUrl . "/modules/gateways/duitku_vapermata/logo.png"; 
     $htmlOutput .= '<img style="width: 152px;" src="' . $img . '" alt="VA Permata"><br>';
     
 	// $_SESSION['duitkuOrder'] = $params;

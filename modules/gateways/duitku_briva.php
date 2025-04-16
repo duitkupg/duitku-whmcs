@@ -133,7 +133,7 @@ function duitku_briva_link($params)
     unset($params['clientdetails']['password']);
 	$securityHash = Duitku_Helper::metode_hash(json_encode($params), $password);
 	
-	$img       	= $systemUrl . "/modules/gateways/duitku-images/duitku_briva.png"; 
+	$img       	= $systemUrl . "/modules/gateways/duitku_briva/logo.png"; 
     $htmlOutput .= '<img style="width: 152px;" src="' . $img . '" alt="Duitku BRIVA"><br>';
     
 	// $_SESSION['duitkuOrder'] = $params;

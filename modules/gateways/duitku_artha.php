@@ -133,7 +133,7 @@ function duitku_artha_link($params)
     unset($params['clientdetails']['password']);
 	$securityHash = Duitku_Helper::metode_hash(json_encode($params), $password);
 	
-	$img       	= $systemUrl . "/modules/gateways/duitku-images/duitku_artha.png"; 
+	$img       	= $systemUrl . "/modules/gateways/duitku_artha/logo.png"; 
     $htmlOutput .= '<img style="width: 152px;" src="' . $img . '" alt="Duitku artha"><br>';
     
 	// $_SESSION['duitkuOrder'] = $params;

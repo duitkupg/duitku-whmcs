@@ -2,7 +2,7 @@
 /*
 Plugin Name:  duitku-whmcs
 Description:  Duitku Payment Gateway 
-Version:      2.11.12
+Version:      2.11.13
 Author:       Duitku Development Team
 
 Author URI:   http://duitku.com
@@ -34,6 +34,10 @@ Install & activate the plugin. Modify some options in the settings page to suits
 
 -
 == Changelog ==
+
+change 2.11.12 to 2.11.13 :
+- Fix file WHMCS.JSON
+- Add Gudang Voucher QRIS
 
 change 2.11.11 to 2.11.12 :
 - remove sampoerna

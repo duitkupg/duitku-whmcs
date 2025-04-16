@@ -127,7 +127,7 @@ function duitku_ovo_link($params)
     unset($params['clientdetails']['password']);
 	$securityHash = Duitku_Helper::metode_hash(json_encode($params), $password);
 	
-	$img       = $systemUrl . "/modules/gateways/duitku-images/duitku_ovo.png"; 
+	$img       = $systemUrl . "/modules/gateways/duitku_ovo/logo.png"; 
     $htmlOutput .= '<img style="width: 152px;" src="' . $img . '" alt="OVO"><br>';
     
 	// $_SESSION['duitkuOrder'] = $params;

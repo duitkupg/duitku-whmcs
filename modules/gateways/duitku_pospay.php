@@ -133,7 +133,7 @@ function duitku_pospay_link($params)
     unset($params['clientdetails']['password']);
 	$securityHash = Duitku_Helper::metode_hash(json_encode($params), $password);
 	
-	$img       	= $systemUrl . "/modules/gateways/duitku-images/duitku_pospay.png"; 
+	$img       	= $systemUrl . "/modules/gateways/duitku_pospay/logo.png"; 
     $htmlOutput .= '<img style="width: 152px;" src="' . $img . '" alt="Duitku PosPay"><br>';
     
 	// $_SESSION['duitkuOrder'] = $params;

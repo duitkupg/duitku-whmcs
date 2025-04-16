@@ -134,7 +134,7 @@ function duitku_nobu_qris_link($params)
     unset($params['clientdetails']['password']);
 	$securityHash = Duitku_Helper::metode_hash(json_encode($params), $password);
 	
-	$img       = $systemUrl . "/modules/gateways/duitku-images/nobu.png"; 
+	$img       = $systemUrl . "/modules/gateways/duitku_nobu_qris/logo.png"; 
     $htmlOutput .= '<img style="width: 152px;" src="' . $img . '" alt="Nobu Qris"><br>';
     
 	// $_SESSION['duitkuOrder'] = $params;

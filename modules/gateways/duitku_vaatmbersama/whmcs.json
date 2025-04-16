@@ -1,0 +1,31 @@
+{
+    "schema": "1.0",
+    "type": "whmcs-gateways",
+    "name": "duitku_vaatmbersama",
+    "license": "MIT",
+    "category": "payments",
+    "description": {
+        "name": "ATM Bersama - Duitku Payment Gateway Module",
+        "tagline": "ATM Bersama via Duitku Payment Gateways💸",
+        "long": "Receive payment from ATM Bersama via Duitku.",
+        "features": [
+			"Virtual Account"
+        ]
+    },
+    "logo": {
+        "filename": "logo.png"
+    },
+    "support": {
+        "homepage": "https:\/\/www.duitku.com\/", 
+        "learn_more": "https:\/\/docs.duitku.com", 
+        "email": "support@duitku.com", 
+        "support_url": "https:\/\/dashboard.duitku.com",
+        "docs_url": "https:\/\/docs.duitku.com\/payment-gateway\/plugin\/"
+    },
+    "authors": [
+        {
+            "name": "Duitku",
+            "homepage": "https:\/\/duitku.com"
+        }
+    ]
+}

@@ -1,0 +1,31 @@
+{
+    "schema": "1.0",
+    "type": "whmcs-gateways",
+    "name": "duitku_vamandirih2h",
+    "license": "MIT",
+    "category": "payments",
+    "description": {
+        "name": "Bank Mandiri - Duitku Payment Gateway Module",
+        "tagline": "Bank Mandiri via Duitku Payment Gateways💸",
+        "long": "Receive payment from Bank Mandiri via Duitku.",
+        "features": [
+			"Virtual Account"
+        ]
+    },
+    "logo": {
+        "filename": "logo.png"
+    },
+    "support": {
+        "homepage": "https:\/\/www.duitku.com\/", 
+        "learn_more": "https:\/\/docs.duitku.com", 
+        "email": "support@duitku.com", 
+        "support_url": "https:\/\/dashboard.duitku.com",
+        "docs_url": "https:\/\/docs.duitku.com\/payment-gateway\/plugin\/"
+    },
+    "authors": [
+        {
+            "name": "Duitku",
+            "homepage": "https:\/\/duitku.com"
+        }
+    ]
+}

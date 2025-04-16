@@ -133,7 +133,7 @@ function duitku_indomaret_link($params)
     unset($params['clientdetails']['password']);
 	$securityHash = Duitku_Helper::metode_hash(json_encode($params), $password);
 	
-	$img       	= $systemUrl . "/modules/gateways/duitku-images/indomaret.png"; 
+	$img       	= $systemUrl . "/modules/gateways/duitku_indomaret/logo.png"; 
     $htmlOutput .= '<img style="width: 152px;" src="' . $img . '" alt="Duitku Indomaret"><br>';
     
 	// $_SESSION['duitkuOrder'] = $params;

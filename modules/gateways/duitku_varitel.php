@@ -133,7 +133,7 @@ function duitku_varitel_link($params)
     unset($params['clientdetails']['password']);
 	$securityHash = Duitku_Helper::metode_hash(json_encode($params), $password);
 
-	$img       	= $systemUrl . "/modules/gateways/duitku-images/duitku_varitel.png"; 
+	$img       	= $systemUrl . "/modules/gateways/duitku_varitel/logo.png"; 
     $htmlOutput .= '<img style="width: 152px;" src="' . $img . '" alt="Duitku Ritel"><br>';
 
 	// $_SESSION['duitkuOrder'] = $params;

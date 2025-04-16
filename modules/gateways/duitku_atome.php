@@ -127,7 +127,7 @@ function duitku_atome_link($params)
     unset($params['clientdetails']['password']);
 	$securityHash = Duitku_Helper::metode_hash(json_encode($params), $password);
 	
-	$img       = $systemUrl . "/modules/gateways/duitku-images/duitku_atome.png"; 
+	$img       = $systemUrl . "/modules/gateways/duitku_atome/logo.png"; 
     $htmlOutput .= '<img style="width: 152px;" src="' . $img . '" alt="ATOME"><br>';
     
 	// $_SESSION['duitkuOrder'] = $params;

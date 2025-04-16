@@ -127,7 +127,7 @@ function duitku_bca_link($params)
     unset($params['clientdetails']['password']);
 	$securityHash = Duitku_Helper::metode_hash(json_encode($params), $password);
 	
-	$img       = $systemUrl . "/modules/gateways/duitku-images/bca-klikpay.png"; 
+	$img       = $systemUrl . "/modules/gateways/duitku_bca/logo.png"; 
     $htmlOutput .= '<img style="width: 152px;" src="' . $img . '" alt="BCA Klikpay"><br>';
     
 	// $_SESSION['duitkuOrder'] = $params;

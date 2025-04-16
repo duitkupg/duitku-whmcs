@@ -1,0 +1,36 @@
+{
+    "schema": "1.0",
+    "type": "whmcs-gateways",
+    "name": "duitku_varitel",
+    "license": "MIT",
+    "category": "payments",
+    "description": {
+        "name": "Retail - Duitku Payment Gateway Module",
+        "tagline": "Retail via Duitku Payment Gateways💸",
+        "long": "Receive payment from Retail(Finnet) via Duitku.",
+        "features": [
+			"Alfamart",
+            "Pos Indonesia",
+            "Pegadaian",
+            "Finnet",
+            "Indihome",
+            "Telephone"
+        ]
+    },
+    "logo": {
+        "filename": "logo.png"
+    },
+    "support": {
+        "homepage": "https:\/\/www.duitku.com\/", 
+        "learn_more": "https:\/\/docs.duitku.com", 
+        "email": "support@duitku.com", 
+        "support_url": "https:\/\/dashboard.duitku.com",
+        "docs_url": "https:\/\/docs.duitku.com\/payment-gateway\/plugin\/"
+    },
+    "authors": [
+        {
+            "name": "Duitku",
+            "homepage": "https:\/\/duitku.com"
+        }
+    ]
+}

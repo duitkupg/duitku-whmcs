@@ -78,18 +78,24 @@ switch ($paymentCode) {
 	case "BV":
 		$gatewayModuleName = "duitku_vabsi"; break;
     default:
-		throw new Exception('payment method not recognize.');
+		logTransaction($paymentCode, json_encode($_POST, JSON_PRETTY_PRINT), "Callback failed, payment method " . $paymentCode . " not recognize.");
+		header("HTTP/1.0 200 OK");
+		exit();
 }
 
 $gatewayParams = getGatewayVariables($gatewayModuleName);
 if (!$gatewayParams['type']) {
-	exit("Module Not Activated");
+	logTransaction($gatewayModuleName, json_encode($_POST, JSON_PRETTY_PRINT), "Callback failed, Module " . $gatewayModuleName . " not active.");
+	header("HTTP/1.0 200 OK");
+	exit();
 }
 
 /*--- end ---*/
 
 if (empty($_POST['resultCode']) || empty($_POST['merchantOrderId']) || empty($_POST['reference'])) {
-	throw new Exception('wrong query string please contact admin.');
+	logTransaction($gatewayModuleName, json_encode($_POST, JSON_PRETTY_PRINT), "Callback failed, param resultCode, merchantOrderId, or reference is empty.");
+	header("HTTP/1.0 200 OK");
+	exit();
 }
 
 $order_id = stripslashes($_POST['merchantOrderId']);
@@ -100,7 +106,14 @@ $additionalParam = stripslashes($_POST['additionalParam']);
 //set parameters for Duitku inquiry
 $merchant_code = $gatewayParams['merchantcode'];
 $api_key = $gatewayParams['serverkey'];
-$endpoint = $gatewayParams['endpoint'];
+$endpoint = "";
+$environment = $gatewayParams['environment'];
+
+if($environment == "sandbox"){
+	$endpoint = "https://sandbox.duitku.com/webapi";
+}else{
+	$endpoint = "https://passport.duitku.com/webapi";
+}
 
 //check current currency
 $currencyCurrent = mysql_fetch_assoc(select_query('tblcurrencies', 'code, rate', array("code"=>$additionalParam)));
@@ -109,7 +122,9 @@ if ($currencyCurrent['code'] != 'IDR'){
 	
 	//Check Default Currency
 	if ($currencyDefault['code'] != 'IDR'){
-		throw new Exception('Default currency is not IDR, please contact admin.');
+		logTransaction($gatewayModuleName, json_encode($currencyDefault, JSON_PRETTY_PRINT), "Callback failed, Default currency is not IDR.");
+		header("HTTP/1.0 200 OK");
+		exit();
 	}
 	
 	$paymentAmount = $paymentAmount * $currencyCurrent['rate'];
@@ -125,49 +140,55 @@ if ($currencyCurrent['code'] != 'IDR'){
  *
  * Returns a normalised invoice ID.
  */
-// echo $paymentAmount;
-// echo "Masuk die";
 $order_id = checkCbInvoiceID($order_id, $gatewayParams['name']);
 checkCbTransID($reference);
 $success = false;
-// echo "Masuk die 2";
 
-if ($status == '00' && Duitku_WebCore::validateTransaction($endpoint, $merchant_code, $order_id, $reference, $api_key)) {
+try {
+	$validatedTransaction = Duitku_WebCore::validateTransaction($endpoint, $merchant_code, $order_id, $reference, $api_key);
+}
+catch (Exception $e) {
+	logTransaction($gatewayModuleName, json_encode($e, JSON_PRETTY_PRINT), "Duitku Check Transaction Error for " . strtoupper($reference) . " with error message: " . $e->getMessage());
+	logModuleCall('Duitku', "Check Transaction for " . strtoupper($reference), $e->getMessage(), "Duitku Check Transaction Error", "");
+	header("HTTP/1.0 200 OK");
+	exit();
+}
+
+if ($status == '00' && $validatedTransaction) {
 	$success = true;
 } else {
 	$success = false;
 }
 
 if ($success) {
-    /**
-     * Add Invoice Payment.
-     *
-     * Applies a payment transaction entry to the given invoice ID.
-     *
-     * @param int $invoiceId         Invoice ID
-     * @param string $transactionId  Transaction ID
-     * @param float $paymentAmount   Amount paid (defaults to full balance)
-     * @param float $paymentFee      Payment fee (optional)
-     * @param string $gatewayModule  Gateway module name
-     */
-    addInvoicePayment(
-        $order_id,
-        $reference,
-        $paymentAmount,
-        0,
-        $gatewayModuleName
-    );
-    echo "Payment success notification accepted";
-}
-else{
-	//log all the failed transaction
-	$orgipn = "";
-	foreach ($_POST as $key => $value) {
-		$orgipn.= ("" . $key . " => " . $value . "\r\n");
-	}
-	logTransaction($gatewayModuleName, $orgipn, "Duitku Handshake Invalid");
+	/**
+	 * Add Invoice Payment.
+	 *
+	 * Applies a payment transaction entry to the given invoice ID.
+	 *
+	 * @param int $invoiceId         Invoice ID
+	 * @param string $transactionId  Transaction ID
+	 * @param float $paymentAmount   Amount paid (defaults to full balance)
+	 * @param float $paymentFee      Payment fee (optional)
+	 * @param string $gatewayModule  Gateway module name
+	 */
+	addInvoicePayment(
+		$order_id,
+		$reference,
+		$paymentAmount,
+		0,
+		$gatewayModuleName
+	);
+	logTransaction($gatewayModuleName, json_encode($_POST, JSON_PRETTY_PRINT), "Callback finish, Payment success validated.");
+	logModuleCall('Duitku', "Callback Transaction for " . strtoupper($reference), $_POST, "Payment success notification accepted", "");
 	header("HTTP/1.0 200 OK");
 	exit();
 }
-
+else{
+	//log all the failed transaction
+	logTransaction($gatewayModuleName, json_encode($_POST, JSON_PRETTY_PRINT), "Callback Invalid, status not success");
+	logModuleCall('Duitku', "Callback Transaction for " . strtoupper($reference), $_POST, "Duitku Handshake Invalid", "");
+	header("HTTP/1.0 200 OK");
+	exit();
+}
 ?>

@@ -45,6 +45,12 @@ class Duitku_ApiRequestor {
     else {
       $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
       $result_array = json_decode($result);
+      if (empty($data_hash['paymentMethod'])) {
+        logModuleCall('Duitku', "Check Transaction Status for order id " . $data_hash['merchantOrderId'], $url . "\n" . json_encode($data_hash, JSON_PRETTY_PRINT), $result, "");
+      } else{
+        logModuleCall('Duitku', "Request Transaction for " . $data_hash['paymentMethod'], $url . "\n" . json_encode($data_hash, JSON_PRETTY_PRINT), $result, "");
+      }
+
       if ($httpcode != 200) {
         $message = 'Duitku Error (' . $result . '): ';            
         throw new Exception($message, $httpcode);

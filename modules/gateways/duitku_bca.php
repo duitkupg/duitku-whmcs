@@ -81,12 +81,14 @@ function duitku_bca_config()
             'Description' => 'Input Duitku API Key. ',
         ),
         // the dropdown field type renders a select menu of options
-        'endpoint' => array(
-            'FriendlyName' => 'Duitku Endpoint',
-            'Type' => 'text',
-			'Size' => '100',
-			'Default' => 'https://passport.duitku.com/webapi',
-            'Description' => 'Duitku Endpoint, mohon isi merchant code dan api key sebelum mengakses endpoint.',
+        'environment' => array(
+            'FriendlyName' => 'Duitku Environment',
+            'Type' => 'dropdown',
+            'Options' => array(
+                'sandbox' => 'Sandbox',
+                'production' => 'Production',
+            ),
+            'Description' => 'Duitku Environment, select one that match with your merchant code and api key.',
         ),        
     );
 }

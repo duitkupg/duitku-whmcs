@@ -2,7 +2,7 @@
 /*
 Plugin Name:  duitku-whmcs
 Description:  Duitku Payment Gateway 
-Version:      2.11.16
+Version:      2.11.17
 Author:       Duitku Development Team
 
 Author URI:   http://duitku.com
@@ -11,7 +11,7 @@ License URI:  https://www.gnu.org/licenses/gpl-2.0.html
 */
 == Installation ==
 
-1. Unduh plugin duitku whmcs [disini](file:///C:/Users/rayhan/Desktop/Duitku-Documentation/trunk/duitku-docs/common/files/duitku-whmcs-v2.9.zip)
+1. Unduh plugin duitku whmcs [disini](https://docs.duitku.com/payment-gateway/plugin)
 2. Masuk ke file manager hosting Anda lalu ke folder/direktori instalasi WHMCS Anda
 3. Unggah file plugin yang sebelumnya telah didownload
 4. Setelah berhasil menggunggah file plugin, klik kanan pada file plugin dan pilih Extract
@@ -23,8 +23,8 @@ License URI:  https://www.gnu.org/licenses/gpl-2.0.html
 10. Akan muncul tampilan konfigurasi untuk payment gateway yang anda aktifkan,
 	- Duitku Merchant Code: masukkan Merchant Code anda yang anda dapatkan dari Project di laman merchant Duitku
 	- Duitku API Key: masukkan Project API Key yang anda dapatkan dari Project di laman merchant Duitku
-	- Duitku Endpoint: Apabila integrasi masih dalam tahap development, gunakan alamat ini https://sandbox.duitku.com/webapi
-	- Duitku Endpoint: Apabila integrasi sudah dalam tahap production, gunakan alamat ini https://passport.duitku.com/webapi
+	- Duitku Environment: Apabila integrasi masih dalam tahap development, pilih sandbox dan apabila anda sudah akan mulai menerima payment online secara real silahkan pilih production.
+	- Duitku Expiry Period: Beberapa payment dapat anda atur jangka waktu payment harus selesai di proses oleh user anda. Anda dapat memasukan nilai angka dalam hitungan menit.
 11. Setelah selesai mengisi form konfigurasi, klik Save Changes, lalu ulangi pada payment gateway duitku yang lain.
 
 For whmcs documentation you may see here: https://developers.whmcs.com/payment-gateways/installation-activation/
@@ -34,6 +34,14 @@ Install & activate the plugin. Modify some options in the settings page to suits
 
 -
 == Changelog ==
+
+change 2.11.16 to 2.11.17 :
+- Remove Endpoint and change to Environment config
+- Remove error_log php
+- logTransaction write invalid request transaction, request callback, and success callback. (The log is written to Gateway Log WHMCS).
+- logActivity write user interation when try to request with Duitku payment. (The log is written to Activity Log WHMCS).
+- logModuleCall write API Call for request transaction, check transaction status to Duitku, and incoming callback. (The log is written to Module Log WHMCS).
+- Failing Request Transaction redirected to failed invoice.
 
 change 2.11.15 to 2.11.16 :
 - Add Bank Syariah Indonesia

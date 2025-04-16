@@ -26,10 +26,10 @@ require_once(dirname(__FILE__) . '/duitku-lib/Duitku.php');
  *
  * @return array
  */
-function duitku_pospay_MetaData()
+function duitku_bnc_MetaData()
 {
     return array(
-        'DisplayName' => 'Duitku pospay Payment Gateway Module',
+        'DisplayName' => 'Duitku BNC/Bank Neo Commerce Payment Gateway Module',
         'APIVersion' => '1.0', // Use API Version 1.1
         'DisableLocalCredtCardInput' => true,
         'TokenisedStorage' => true,
@@ -55,14 +55,14 @@ function duitku_pospay_MetaData()
  *
  * @return array
  */
-function duitku_pospay_config()
+function duitku_bnc_config()
 {
     return array(
         // the friendly display name for a payment gateway should be
         // defined here for backwards compatibility
         'FriendlyName' => array(
             'Type' => 'System',
-            'Value' => 'Duitku PosPay',
+            'Value' => 'Duitku BNC/Bank Neo Commerce',
         ),
         // a text field type allows for single line text input
         'merchantcode' => array(
@@ -111,7 +111,7 @@ function duitku_pospay_config()
  *
  * @return string
  */
-function duitku_pospay_link($params)
+function duitku_bnc_link($params)
 {	
 	//set session Order
 	$_SESSION['duitkuOrder'] = "";
@@ -121,10 +121,10 @@ function duitku_pospay_link($params)
 	$systemUrl = $params['systemurl'];
     $returnUrl = $params['returnurl'];
 	$langPayNow = $params['langpaynow'];
-	$paymentMethod = "A2"; // PaymentMethod For Duitku
+	$paymentMethod = "NC"; // PaymentMethod For Duitku
 	
-	$img       	= $systemUrl . "/modules/gateways/duitku-images/duitku_pospay.png"; 
-    $htmlOutput .= '<img style="width: 152px;" src="' . $img . '" alt="Duitku PosPay"><br>';
+	$img       	= $systemUrl . "/modules/gateways/duitku-images/duitku_bnc.png"; 
+    $htmlOutput .= '<img style="width: 152px;" src="' . $img . '" alt="Duitku BNC/Bank Neo Commerce"><br>';
 
 	$_SESSION['duitkuOrder'] = $params;
 	$htmlOutput .= '<form method="post" action="' . $systemUrl."/modules/gateways/callback/duitku_accept.php" . '">';

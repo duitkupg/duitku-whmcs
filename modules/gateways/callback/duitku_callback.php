@@ -23,10 +23,16 @@ switch ($paymentCode) {
 		$gatewayModuleName = "duitku_vapermata"; break;
 	case "VA":
 		$gatewayModuleName = "duitku_vamaybank"; break;
+	case "AG":
+		$gatewayModuleName = "duitku_artha"; break;
 	case "A1":
 		$gatewayModuleName = "duitku_vaatmbersama"; break;
 	case "A2":
 		$gatewayModuleName = "duitku_pospay"; break;
+	case "DA":
+		$gatewayModuleName = "duitku_dana"; break;
+	case "DN":
+		$gatewayModuleName = "duitku_indodana"; break;
 	case "B1":
 		$gatewayModuleName = "duitku_vacimb"; break;
 	case "I1":
@@ -37,6 +43,8 @@ switch ($paymentCode) {
 		$gatewayModuleName = "duitku_vamandirih2h"; break;
 	case "FT":
 		$gatewayModuleName = "duitku_varitel"; break;
+	case "S1":
+		$gatewayModuleName = "duitku_sampoerna"; break;
 	case "SP":
 		$gatewayModuleName = "duitku_shopee"; break;
 	case "SA":
@@ -51,6 +59,8 @@ switch ($paymentCode) {
 		$gatewayModuleName = "duitku_linkaja_qris"; break;
 	case "IR":
 		$gatewayModuleName = "duitku_indomaret"; break;
+	case "NC":
+		$gatewayModuleName = "duitku_bnc"; break;
     default:
 		throw new Exception('payment method not recognize.');
 }

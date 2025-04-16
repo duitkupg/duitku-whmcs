@@ -114,7 +114,7 @@ function duitku_vapermata_config()
 function duitku_vapermata_link($params)
 {	
 	//set session Order
-	$_SESSION['duitkuOrder'] = "";
+	// $_SESSION['duitkuOrder'] = "";
 	
 	//System parameters
 	$order_id = $params['invoiceid'];
@@ -122,14 +122,22 @@ function duitku_vapermata_link($params)
     $returnUrl = $params['returnurl'];
 	$langPayNow = $params['langpaynow'];
 	$paymentMethod = "BT"; // PaymentMethod For Duitku
+
+    //unset settings
+    unset($params['merchantcode']);
+    unset($params['serverkey']); 
+    unset($params['endpoint']); 
+    unset($params['expiryPeriod']);
 	
 	$img       = $systemUrl . "/modules/gateways/duitku-images/duitku_vapermata.png"; 
     $htmlOutput .= '<img style="width: 152px;" src="' . $img . '" alt="VA Permata"><br>';
 
-	$_SESSION['duitkuOrder'] = $params;
+	// $_SESSION['duitkuOrder'] = $params;
+    $params_string = json_encode($params);
 	$htmlOutput .= '<form method="post" action="' . $systemUrl."/modules/gateways/callback/duitku_accept.php" . '">';
 	$htmlOutput .= '<input type="hidden" name="order_id" value="' . $order_id . '" />';
 	$htmlOutput .= '<input type="hidden" name="paymentMethod" value="' . $paymentMethod . '" />';
+	$htmlOutput .= '<input type="hidden" name="params" value="' . htmlspecialchars($params_string) . '" />';
     $htmlOutput .= '<input type="submit" value="' . $langPayNow . '" />';
     $htmlOutput .= '</form>';
 

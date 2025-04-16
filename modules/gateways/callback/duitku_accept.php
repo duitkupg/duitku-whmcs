@@ -8,33 +8,36 @@ require_once __DIR__ . '/../duitku-lib/Duitku.php';
 // check if the module is activated
 /*--- start ---*/
 
-if (empty($_REQUEST['order_id']) || empty($_REQUEST['paymentMethod']) || empty($_SESSION['duitkuOrder'])) {
+if (empty($_REQUEST['order_id']) || empty($_REQUEST['paymentMethod']) || empty($_REQUEST['params'])) {
+	echo 'wrong query string please contact admin.';
 	error_log('wrong query string please contact admin.');
 	exit;
 }
 
-	//get Params Session
-	$params = $_SESSION['duitkuOrder'];
+	//get Params
+	$params = json_decode(htmlspecialchars_decode($_REQUEST['params']));
+	$config = getGatewayVariables($params->paymentmethod);
 	
 	//set parameters for Duitku inquiry
-    $merchant_code = $params['merchantcode'];
-    $amount = $params['amount'];//(int)ceil($params['amount']);//
-	$order_id = $params['invoiceid'];	
-	$serverkey = $params['serverkey'];
-	$endpoint = $params['endpoint'];
-	$expiryPeriod = $params['expiryPeriod'];
-	$credcode = $params['credcode'];
-	$currencyId = $params['currencyId'];
-	$additionalParam = $params['currency'];
+    $merchant_code = $config['merchantcode'];
+    $amount = $params->amount;//(int)ceil($params['amount']);//
+	$order_id = $params->invoiceid;	
+	$serverkey = $config['serverkey'];
+	$endpoint = $config['endpoint'];
+	$expiryPeriod = $config['expiryPeriod'];
+	$credcode = $params->credcode;
+	$currencyId = $params->currencyId;
+	$additionalParam = $params->currency;
 	
 	if (empty($merchant_code) || empty($serverkey) || empty($endpoint)) {
 		echo "Please Check Duitku Configuration Payment";
+		error_log("Please Check Duitku Configuration Payment");
 		exit;
 	}
 	
 	//check if currency not IDR
-	if ($params['currency'] != 'IDR') {
-		$currencyCurrent = mysql_fetch_assoc(select_query('tblcurrencies', 'code, rate', array("code"=>$params['currency'])));
+	if ($params->currency != 'IDR') {
+		$currencyCurrent = mysql_fetch_assoc(select_query('tblcurrencies', 'code, rate', array("code"=>$params->currency)));
 		$currencyDefault = mysql_fetch_assoc(select_query('tblcurrencies', 'code, rate', array("id"=>'1')));
 		$currencyIDR = mysql_fetch_assoc(select_query('tblcurrencies', 'code, rate', array("code"=>'IDR')));
 		//check IDR rate existance
@@ -60,22 +63,22 @@ if (empty($_REQUEST['order_id']) || empty($_REQUEST['paymentMethod']) || empty($
 	$amount = (int)ceil($amount);
 
 	//System parameters
-	$companyName = $params['companyname'];
-	$systemUrl = $params['systemurl'];
-    $returnUrl = $params['returnurl'];
+	$companyName = $params->companyname;
+	$systemUrl = $params->systemurl;
+    $returnUrl = $params->returnurl;
 	$paymentMethod = $_REQUEST['paymentMethod'];
 	
 	// Client Parameters
-    $firstname = $params['clientdetails']['firstname'];
-    $lastname = $params['clientdetails']['lastname'];
-    $email = $params['clientdetails']['email'];
-	$phoneNumber = $params['clientdetails']['phonenumber'];
-	$postalCode = $params['clientdetails']['postcode'];
-	$country = $params['clientdetails']['country'];
-	$address1 = $params['clientdetails']['address1'];
-    $address2 = $params['clientdetails']['address2'];
-	$city = $params['clientdetails']['city'];
-	$description = $params["description"];
+    $firstname = $params->clientdetails->firstname;
+    $lastname = $params->clientdetails->lastname;
+    $email = $params->clientdetails->email;
+	$phoneNumber = $params->clientdetails->phonenumber;
+	$postalCode = $params->clientdetails->postcode;
+	$country = $params->clientdetails->country;
+	$address1 = $params->clientdetails->address1;
+    $address2 = $params->clientdetails->address2;
+	$city = $params->clientdetails->city;
+	$description = $params->description;
 	
 	$ProducItem = array(
 		'name' => $description,

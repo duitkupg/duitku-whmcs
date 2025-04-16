@@ -115,7 +115,7 @@ function duitku_shopeepay_applink_link($params)
 {
 		
 	//set session Order
-	$_SESSION['duitkuOrder'] = "";
+	// $_SESSION['duitkuOrder'] = "";
 	
 	//System parameters
 	$order_id = $params['invoiceid'];
@@ -123,16 +123,24 @@ function duitku_shopeepay_applink_link($params)
     $returnUrl = $params['returnurl'];
 	$langPayNow = $params['langpaynow'];
 	$paymentMethod = "SA"; // PaymentMethod For Duitku
+
+  //unset settings
+  unset($params['merchantcode']);
+  unset($params['serverkey']); 
+  unset($params['endpoint']); 
+  unset($params['expiryPeriod']);
 	
 	$img       = $systemUrl . "/modules/gateways/duitku-images/duitku_shopeepay_applink.png";
 	$htmlOutput .= '<img style="width: 152px;" src="' . $img . '" alt="SHOPEEPAY APPLINK"><br>';
 
-	$_SESSION['duitkuOrder'] = $params;
-	$htmlOutput .= '<form method="post" action="' . $systemUrl."/modules/gateways/callback/duitku_accept.php" . '">';
+	// $_SESSION['duitkuOrder'] = $params;
+  $params_string = json_encode($params);
+  $htmlOutput .= '<form method="post" action="' . $systemUrl."/modules/gateways/callback/duitku_accept.php" . '">';
 	$htmlOutput .= '<input type="hidden" name="order_id" value="' . $order_id . '" />';
 	$htmlOutput .= '<input type="hidden" name="paymentMethod" value="' . $paymentMethod . '" />';
-    $htmlOutput .= '<input type="submit" id="pay-button" value="' . $langPayNow . '" />';
-    $htmlOutput .= '</form>';
+	$htmlOutput .= '<input type="hidden" name="params" value="' . htmlspecialchars($params_string) . '" />';
+  $htmlOutput .= '<input type="submit" id="pay-button" value="' . $langPayNow . '" />';
+  $htmlOutput .= '</form>';
 
   $htmlOutput .= '<script>
   var isMobile = false;

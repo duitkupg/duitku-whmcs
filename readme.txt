@@ -2,7 +2,7 @@
 /*
 Plugin Name:  duitku-whmcs
 Description:  Duitku Payment Gateway 
-Version:      2.11.11
+Version:      2.11.12
 Author:       Duitku Development Team
 
 Author URI:   http://duitku.com
@@ -34,6 +34,9 @@ Install & activate the plugin. Modify some options in the settings page to suits
 
 -
 == Changelog ==
+
+change 2.11.11 to 2.11.12 :
+- remove sampoerna
 
 improvement 2.11.10 to 2.11.11 :
 - Convert rate amount only if base amount is IDR

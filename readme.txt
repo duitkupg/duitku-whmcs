@@ -2,7 +2,7 @@
 /*
 Plugin Name:  duitku-whmcs
 Description:  Duitku Payment Gateway 
-Version:      2.11.17
+Version:      2.11.18
 Author:       Duitku Development Team
 
 Author URI:   http://duitku.com
@@ -34,6 +34,10 @@ Install & activate the plugin. Modify some options in the settings page to suits
 
 -
 == Changelog ==
+
+change 2.11.17 to 2.11.18 :
+- Add payment Nusapay QRIS
+- Fix LinkAja config Endpoint to Environment
 
 change 2.11.16 to 2.11.17 :
 - Remove Endpoint and change to Environment config

@@ -79,6 +79,8 @@ switch ($paymentCode) {
 		$gatewayModuleName = "duitku_vadanamonh2h"; break;
 	case "BV":
 		$gatewayModuleName = "duitku_vabsi"; break;
+	case "IQ":
+		$gatewayModuleName = "duitku_bni_qris"; break;
     default:
 		logTransaction($paymentCode, json_encode($_POST, JSON_PRETTY_PRINT), "Callback failed, payment method " . $paymentCode . " not recognize.");
 		header("HTTP/1.0 200 OK");

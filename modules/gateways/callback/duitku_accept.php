@@ -8,19 +8,19 @@ require_once __DIR__ . '/../duitku-lib/Duitku.php';
 // check if the module is activated
 /*--- start ---*/
 
-if (empty($_REQUEST['order_id']) || empty($_REQUEST['paymentMethod']) || empty($_REQUEST['paymentName']) || empty($_REQUEST['params']) || empty($_REQUEST['securityHash'])) {
-	logTransaction($_REQUEST['paymentName'], json_encode($_REQUEST, JSON_PRETTY_PRINT), "Failed before requesting to Duitku, Empty request data");
-	logActivity("wrong query string, missing request data order_id, paymentMethod, paymentName, params, or securityHash.", 0);
-	header('Location: ' . json_decode(base64_decode($_REQUEST['params']))->systemurl . "/viewinvoice.php?id=" . $order_id . "&paymentfailed=true");
-	die();
-}
+	if (empty($_REQUEST['order_id']) || empty($_REQUEST['paymentMethod']) || empty($_REQUEST['paymentName']) || empty($_REQUEST['params']) || empty($_REQUEST['securityHash'])) {
+		logActivity("wrong query string, missing request data order_id, paymentMethod, paymentName, params, or securityHash.", 0);
+		logTransaction($_REQUEST['paymentName'], json_encode($_REQUEST, JSON_PRETTY_PRINT), "Failed before requesting to Duitku, Empty request data");
+		header('Location: ' . json_decode(base64_decode($_REQUEST['params']))->systemurl . "/viewinvoice.php?id=" . $order_id . "&paymentfailed=true");
+		die();
+	}
 	//get config data
 	$config = getGatewayVariables($_REQUEST['paymentName']);
 	
 	//cek configuration
 	if (empty($config['merchantcode']) || empty($config['serverkey']) || empty($config['environment'])) {
-		logTransaction($_REQUEST['paymentName'], json_encode($config, JSON_PRETTY_PRINT), "Invalid Configuration for " . $_REQUEST['paymentName']);
 		logActivity("Invalid Configuration for " . $_REQUEST['paymentName'], 0);
+		logTransaction($_REQUEST['paymentName'], ['error' => $config], "Invalid Configuration for " . $_REQUEST['paymentName']);
 		header('Location: ' . $config['systemurl'] . "/viewinvoice.php?id=" . $order_id . "&paymentfailed=true");
 		die();
 	}

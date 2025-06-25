@@ -2,7 +2,7 @@
 /*
 Plugin Name:  duitku-whmcs
 Description:  Duitku Payment Gateway 
-Version:      2.11.18
+Version:      2.11.19
 Author:       Duitku Development Team
 
 Author URI:   http://duitku.com
@@ -34,6 +34,15 @@ Install & activate the plugin. Modify some options in the settings page to suits
 
 -
 == Changelog ==
+
+change 2.11.18 to 2.11.19 :
+- Add payment BNI QRIS
+- Change URL Payment MG to V2 Inquiry
+- Remove Return Text Callback
+- Change validateTransaction using reference
+- Fix order log, to prevent if logTransaction error
+- Add Validate StatusCode
+- Adding signature check and return text in Callback
 
 change 2.11.17 to 2.11.18 :
 - Add payment Nusapay QRIS

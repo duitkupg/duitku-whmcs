@@ -79,9 +79,12 @@ switch ($paymentCode) {
 		$gatewayModuleName = "duitku_vadanamonh2h"; break;
 	case "BV":
 		$gatewayModuleName = "duitku_vabsi"; break;
+	case "IQ":
+		$gatewayModuleName = "duitku_bni_qris"; break;
     default:
 		logTransaction($paymentCode, json_encode($_POST, JSON_PRETTY_PRINT), "Callback failed, payment method " . $paymentCode . " not recognize.");
 		header("HTTP/1.0 200 OK");
+		//echo "Callback failed, payment method " . $paymentCode . " not recognize.";
 		exit();
 }
 
@@ -89,6 +92,7 @@ $gatewayParams = getGatewayVariables($gatewayModuleName);
 if (!$gatewayParams['type']) {
 	logTransaction($gatewayModuleName, json_encode($_POST, JSON_PRETTY_PRINT), "Callback failed, Module " . $gatewayModuleName . " not active.");
 	header("HTTP/1.0 200 OK");
+	//echo "Callback failed, Module " . $gatewayModuleName . " not active.";
 	exit();
 }
 
@@ -97,6 +101,7 @@ if (!$gatewayParams['type']) {
 if (empty($_POST['resultCode']) || empty($_POST['merchantOrderId']) || empty($_POST['reference'])) {
 	logTransaction($gatewayModuleName, json_encode($_POST, JSON_PRETTY_PRINT), "Callback failed, param resultCode, merchantOrderId, or reference is empty.");
 	header("HTTP/1.0 200 OK");
+	//echo "Callback failed, param resultCode, merchantOrderId, or reference is empty.";
 	exit();
 }
 
@@ -105,11 +110,20 @@ $status = stripslashes($_POST['resultCode']);
 $reference = stripslashes($_POST['reference']);
 $paymentAmount = stripslashes($_POST['amount']);
 $additionalParam = stripslashes($_POST['additionalParam']);
+$signature = stripslashes($_POST['signature']);
 //set parameters for Duitku inquiry
 $merchant_code = $gatewayParams['merchantcode'];
 $api_key = $gatewayParams['serverkey'];
 $endpoint = "";
 $environment = $gatewayParams['environment'];
+
+$checkSignature = hash ( "md5", $merchant_code . $paymentAmount . $order_id . $api_key);
+if ($signature != $checkSignature){
+	logTransaction($gatewayModuleName, json_encode($_POST, JSON_PRETTY_PRINT), "Wrong Signature");
+	header("HTTP/1.0 200 OK");
+	//echo "Wrong Signature";
+	exit();
+} 	
 
 if($environment == "sandbox"){
 	$endpoint = "https://sandbox.duitku.com/webapi";
@@ -126,6 +140,7 @@ if ($currencyCurrent['code'] != 'IDR'){
 	if ($currencyDefault['code'] != 'IDR'){
 		logTransaction($gatewayModuleName, json_encode($currencyDefault, JSON_PRETTY_PRINT), "Callback failed, Default currency is not IDR.");
 		header("HTTP/1.0 200 OK");
+		//echo "Callback failed, Default currency is not IDR.";
 		exit();
 	}
 	
@@ -142,17 +157,18 @@ if ($currencyCurrent['code'] != 'IDR'){
  *
  * Returns a normalised invoice ID.
  */
-$order_id = checkCbInvoiceID($order_id, $gatewayParams['name']);
-checkCbTransID($reference);
+$order_id = checkCbInvoiceID($order_id, $gatewayParams['name']); //return Invoice ID Not Found if order_id not found
+checkCbTransID($reference); // return nothing, if it doesnt log anything, this show when reference duplicated (reference used as Transaction ID)
 $success = false;
 
 try {
 	$validatedTransaction = Duitku_WebCore::validateTransaction($endpoint, $merchant_code, $order_id, $reference, $api_key);
 }
 catch (Exception $e) {
-	logTransaction($gatewayModuleName, json_encode($e, JSON_PRETTY_PRINT), "Duitku Check Transaction Error for " . strtoupper($reference) . " with error message: " . $e->getMessage());
+	logTransaction($gatewayModuleName, json_encode($_POST, JSON_PRETTY_PRINT), "Duitku Check Transaction Error for " . strtoupper($reference) . " with error message: " . $e->getMessage());
 	logModuleCall('Duitku', "Check Transaction for " . strtoupper($reference), $e->getMessage(), "Duitku Check Transaction Error", "");
 	header("HTTP/1.0 200 OK");
+	//echo "Duitku Check Transaction Error for " . strtoupper($reference) . " with error message: " . $e->getMessage();
 	exit();
 }
 
@@ -184,6 +200,7 @@ if ($success) {
 	logTransaction($gatewayModuleName, json_encode($_POST, JSON_PRETTY_PRINT), "Callback finish, Payment success validated.");
 	logModuleCall('Duitku', "Callback Transaction for " . strtoupper($reference), $_POST, "Payment success notification accepted", "");
 	header("HTTP/1.0 200 OK");
+	//echo "Callback finish, Payment success validated.";
 	exit();
 }
 else{
@@ -191,6 +208,7 @@ else{
 	logTransaction($gatewayModuleName, json_encode($_POST, JSON_PRETTY_PRINT), "Callback Invalid, status not success");
 	logModuleCall('Duitku', "Callback Transaction for " . strtoupper($reference), $_POST, "Duitku Handshake Invalid", "");
 	header("HTTP/1.0 200 OK");
+	//echo "Callback Invalid, status not success";
 	exit();
 }
 ?>

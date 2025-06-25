@@ -51,9 +51,8 @@ class Duitku_ApiRequestor {
         logModuleCall('Duitku', "Request Transaction for " . $data_hash['paymentMethod'], $url . "\n" . json_encode($data_hash, JSON_PRETTY_PRINT), $result, "");
       }
 
-      if ($httpcode != 200) {
-        $message = 'Duitku Error (' . $result . '): ';            
-        throw new Exception($message, $httpcode);
+      if ($httpcode != 200 || !isset($result_array->statusCode) || $result_array->statusCode != '00') {            
+        throw new Exception($result, $httpcode);
       }
       else {
         return $result_array;

@@ -7,8 +7,8 @@ class Duitku_WebCore {
     //$payloads = array();
     //$payloads = array_replace_recursive($payloads, $params);    
     
-           $result = Duitku_ApiRequestor::post($baseUrl . '/api/merchant/v2/inquiry',$params);
-    
+    $result = Duitku_ApiRequestor::post($baseUrl . '/api/merchant/v2/inquiry',$params);
+
     //var_dump($result);
     //die();
     return $result->paymentUrl;
@@ -19,12 +19,12 @@ class Duitku_WebCore {
         $url = $baseUrl . '/api/merchant/transactionStatus';                        
 
         //generate Signature
-        $signature = md5($merchantCode . $order_id . $apikey);
+        $signature = md5($merchantCode . $reference . $apikey);
 
         // Prepare Parameters
         $params = array(
           'merchantCode' => $merchantCode, // API Key Merchant /
-          'merchantOrderId' => $order_id,
+          //'merchantOrderId' => $order_id,
           'signature' => $signature,
           'reference' => $reference,
         );
@@ -32,7 +32,7 @@ class Duitku_WebCore {
         //throw error if failed		
 		$result = Duitku_ApiRequestor::post($url,$params);    			
 		
-		if ($result->statusCode == "00")			
+		if ($result->statusCode == "00" && $result->reference == $reference)						
 			return true;
 		else
 			return false;

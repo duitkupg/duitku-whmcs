@@ -1,0 +1,33 @@
+{
+    "schema": "1.0",
+    "type": "whmcs-gateways",
+    "name": "duitku_tokopedia_others",
+    "license": "MIT",
+    "category": "payments",
+    "description": {
+        "name": "Tokopedia Others - Duitku Payment Gateway Module",
+        "tagline": "Tokopedia Others via Duitku Payment Gateways💸",
+        "long": "Receive payment from Tokopedia Others via Duitku.",
+        "features": [
+			"Virtual Account",
+            "Retail",
+            "Paylater"
+        ]
+    },
+    "logo": {
+        "filename": "logo.png"
+    },
+    "support": {
+        "homepage": "https:\/\/www.duitku.com\/", 
+        "learn_more": "https:\/\/docs.duitku.com", 
+        "email": "support@duitku.com", 
+        "support_url": "https:\/\/dashboard.duitku.com",
+        "docs_url": "https:\/\/docs.duitku.com\/payment-gateway\/plugin\/"
+    },
+    "authors": [
+        {
+            "name": "Duitku",
+            "homepage": "https:\/\/duitku.com"
+        }
+    ]
+}

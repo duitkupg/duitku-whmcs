@@ -79,6 +79,12 @@ switch ($paymentCode) {
 		$gatewayModuleName = "duitku_vadanamonh2h"; break;
 	case "BV":
 		$gatewayModuleName = "duitku_vabsi"; break;
+	case "T1":
+		$gatewayModuleName = "duitku_tokopedia_card_payment"; break;
+	case "T2":
+		$gatewayModuleName = "duitku_tokopedia_e_wallet"; break;
+	case "T3":
+		$gatewayModuleName = "duitku_tokopedia_others"; break;
     default:
 		logTransaction($paymentCode, json_encode($_POST, JSON_PRETTY_PRINT), "Callback failed, payment method " . $paymentCode . " not recognize.");
 		header("HTTP/1.0 200 OK");

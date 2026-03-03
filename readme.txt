@@ -2,7 +2,7 @@
 /*
 Plugin Name:  duitku-whmcs
 Description:  Duitku Payment Gateway 
-Version:      2.11.19
+Version:      2.11.20
 Author:       Duitku Development Team
 
 Author URI:   http://duitku.com
@@ -34,6 +34,11 @@ Install & activate the plugin. Modify some options in the settings page to suits
 
 -
 == Changelog ==
+
+change 2.11.19 to 2.11.20 :
+- Add Payment Tokopedia Card Payment
+- Add Payment Tokopedia E-Wallet
+- Add Payment Tokopedia Others
 
 change 2.11.18 to 2.11.19 :
 - Change URL Payment MG to V2 Inquiry

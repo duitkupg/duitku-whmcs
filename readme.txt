@@ -2,7 +2,7 @@
 /*
 Plugin Name:  duitku-whmcs
 Description:  Duitku Payment Gateway 
-Version:      2.11.20
+Version:      2.11.21
 Author:       Duitku Development Team
 
 Author URI:   http://duitku.com
@@ -34,6 +34,9 @@ Install & activate the plugin. Modify some options in the settings page to suits
 
 -
 == Changelog ==
+
+change 2.11.20 to 2.11.21 :
+- Security Upgrade signature hashing algorithm from SHA256/MD5 to HMAC-SHA256
 
 change 2.11.19 to 2.11.20 :
 - Add Payment Tokopedia Card Payment

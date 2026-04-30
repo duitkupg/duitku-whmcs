@@ -20,7 +20,7 @@ class Duitku_Helper {
     }
 
     public static function metode_hash($string, $serverkey){
-        $output = hash("sha256", $string . $serverkey);
+        $output = hash_hmac("sha256", $string , $serverkey);
         
         return $output;
     }

@@ -121,7 +121,7 @@ $api_key = $gatewayParams['serverkey'];
 $endpoint = "";
 $environment = $gatewayParams['environment'];
 
-$checkSignature = hash ( "md5", $merchant_code . $paymentAmount . $order_id . $api_key);
+$checkSignature = hash_hmac ( "sha256", $merchant_code . $paymentAmount . $order_id , $api_key);
 if ($signature != $checkSignature){
 	logTransaction($gatewayModuleName, json_encode($_POST, JSON_PRETTY_PRINT), "Wrong Signature");
 	header("HTTP/1.0 200 OK");

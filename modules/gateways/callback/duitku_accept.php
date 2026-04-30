@@ -121,7 +121,7 @@ require_once __DIR__ . '/../duitku-lib/Duitku.php';
 		'shippingAddress' => $billing_address
 	);
 
-	$signature = md5($merchant_code.$order_id.$amount.$serverkey);
+	$signature = hash_hmac("sha256",$merchant_code.$order_id.$amount,$serverkey);
 	
 	// Prepare Parameters	
     $params = array(

@@ -19,7 +19,7 @@ class Duitku_WebCore {
         $url = $baseUrl . '/api/merchant/transactionStatus';                        
 
         //generate Signature
-        $signature = md5($merchantCode . $reference . $apikey);
+        $signature = hash_hmac("sha256", $merchantCode . $reference , $apikey);
 
         // Prepare Parameters
         $params = array(
